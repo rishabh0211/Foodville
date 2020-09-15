@@ -10,6 +10,7 @@ const mongoSessionStore = require("connect-mongo");
 const session = require("express-session");
 const passport = require("passport");
 
+const routes = require('./routes');
 require('./models/User');
 require('./passport');
 
@@ -60,6 +61,8 @@ app.use((req, res, next) => {
   res.locals.user = req.user || null;
   next();
 });
+
+app.use("/", routes);
 
 app.listen(port, () => {
   console.log(`server is up and running on port 4000`);
