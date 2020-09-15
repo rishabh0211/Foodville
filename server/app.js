@@ -8,6 +8,10 @@ const helmet = require("helmet");
 const compression = require("compression");
 const mongoSessionStore = require("connect-mongo");
 const session = require("express-session");
+const passport = require("passport");
+
+require('./models/User');
+require('./passport');
 
 const dev = process.env.NODE_ENV !== "production";
 const app = express();
@@ -47,6 +51,15 @@ if (!dev) {
 }
 app.use(session(sessionConfig));
 
+/* Add passport middleware to set passport up */
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+  /* custom middleware to put our user data (from passport) on the req.user so we can access it as such anywhere in our app */
+  res.locals.user = req.user || null;
+  next();
+});
 
 app.listen(port, () => {
   console.log(`server is up and running on port 4000`);

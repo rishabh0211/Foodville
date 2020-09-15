@@ -31,9 +31,9 @@ const UserSchema = new mongoose.Schema(
       }
     },
     isRestaurantOwner: Boolean,
-    blockedUsers: [{ type: ObjectId, ref: User }]
+    blockedUsers: [{ type: ObjectId, ref: "User" }]
   },
   { timestamps: true }
 );
 
-export default mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", UserSchema);
