@@ -1,0 +1,20 @@
+const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema;
+
+const MealSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Meal name is required"]
+    },
+    price: Number,
+    description: {
+      type: String,
+      maxlength: 150
+    },
+    deletedAt: Date,
+  },
+  { timestamps: true }
+);
+
+export default mongoose.model("Meal", MealSchema);
