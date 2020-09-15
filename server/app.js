@@ -1,4 +1,7 @@
+const path = require("path");
 const express = require('express');
+const mongoose = require("mongoose");
+require('./db/mongoose');
 
 
 const dev = process.env.NODE_ENV !== "production";
