@@ -6,6 +6,8 @@ const logger = require("morgan");
 const cors = require('cors');
 const helmet = require("helmet");
 const compression = require("compression");
+const mongoSessionStore = require("connect-mongo");
+const session = require("express-session");
 
 const dev = process.env.NODE_ENV !== "production";
 const app = express();
@@ -19,6 +21,32 @@ app.use(logger("combined"));
 app.use(cors({
   credentials: true
 }));
+
+/** Session Configuration */
+const MongoStore = mongoSessionStore(session);
+const sessionConfig = {
+  name: "foodville-session.sid",
+  // secret used for using signed cookies w/ the session
+  secret: process.env.SESSION_SECRET,
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 1 * 24 * 60 * 60 // save session for 1 day
+  }),
+  // forces the session to be saved back to the store
+  resave: false,
+  // don't save unmodified sessions
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60 * 24 * 1 // expires in 1 days
+  }
+};
+if (!dev) {
+  sessionConfig.cookie.secure = true; // serve secure cookies in production environment
+  app.set("trust proxy", 1); // trust first proxy
+}
+app.use(session(sessionConfig));
+
 
 app.listen(port, () => {
   console.log(`server is up and running on port 4000`);
