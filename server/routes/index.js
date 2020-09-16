@@ -21,5 +21,6 @@ router.post(
   catchErrors(authController.signup)
 );
 router.post("/api/auth/signin", authController.signin);
+router.get("/api/auth/signout", authController.signOut);
 
 module.exports = router;

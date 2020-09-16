@@ -48,6 +48,12 @@ exports.signin = async (req, res, next) => {
   })(req, res, next);
 };
 
+exports.signOut = async (req, res, next) => {
+  res.clearCookie("employee-feedback.sid");
+  req.logout();
+  res.json({ message: "You are now signed out" });
+};
+
 exports.checkRestaurantAuth = (req, res, next) => {
   if (!req.user || req.user.type !== userTypes.RESTAURANT) {
     return res.status(401).send({ message: "You are not authorized to perform this action" });
