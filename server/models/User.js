@@ -30,6 +30,7 @@ const userSchema = new mongoose.Schema(
         }
       }
     },
+    type: String,
     isRestaurantOwner: Boolean,
     blockedUsers: [{ type: ObjectId, ref: "User" }],
     // restaurants: [{ type: ObjectId, ref: "Restaurant" }]
@@ -42,6 +43,17 @@ const autoPopulateReviewUsers = function (next) {
   next();
 };
 userSchema.pre("findOne", autoPopulateReviewUsers);
+
+// delete password property from the user object
+userSchema.methods.toJSON = function () {
+  const user = this;
+  const userObject = user.toObject();
+  if (userObject.type !== "restaurant") {
+    delete userObject.blockedUsers;
+  }
+  delete userObject.password;
+  return userObject;
+};
 
 // Hash the plain text password before saving
 userSchema.pre("save", async function (next) {
@@ -60,13 +72,5 @@ userSchema.post("save", function (error, doc, next) {
     next(error);
   }
 });
-
-// delete password property from the user object
-userSchema.methods.toJSON = function () {
-  const user = this;
-  const userObject = user.toObject();
-  delete userObject.password;
-  return userObject;
-};
 
 module.exports = mongoose.model("User", userSchema);
