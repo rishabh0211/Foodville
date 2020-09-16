@@ -60,9 +60,16 @@ exports.signOut = async (req, res, next) => {
 };
 
 // checks if it the user is of type restaurant
-exports.checkRestaurantAuth = (req, res, next) => {
+exports.checkIsRestaurant = (req, res, next) => {
   if (!req.user || req.user.type !== userTypes.RESTAURANT) {
     return res.status(401).send({ message: "You are not authorized to perform this action" });
+  }
+  next();
+};
+
+exports.checkIsAuthRestaurant = (req, res, next) => {
+  if (req.user._id !== req.restaurant.owner._id) {
+    return res.status(403).send({ message: "You are not allowed to perform this action" });
   }
   next();
 };

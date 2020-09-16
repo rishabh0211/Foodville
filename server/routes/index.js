@@ -47,7 +47,7 @@ router.param("restaurantId", catchErrors(restaurantController.getRestaurantById)
 // create restaurant
 router.post(
   "/api/restaurant",
-  authController.checkRestaurantAuth,
+  authController.checkIsRestaurant,
   catchErrors(restaurantController.createRestaurant)
 );
 router.
@@ -56,7 +56,7 @@ router.
   .get(catchErrors(restaurantController.getRestaurant))
   // update restaurant
   .post(
-    authController.checkRestaurantAuth,
+    authController.checkIsAuthRestaurant,
     catchErrors(restaurantController.updateRestaurant)
   );
 // delete restaurant
