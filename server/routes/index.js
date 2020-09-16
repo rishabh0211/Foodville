@@ -43,7 +43,7 @@ router.param("userId", catchErrors(userController.getUserById));
 /** 
  * RESTAURANT OWNER ROUTES: /api/restaurant
  */
-
+router.param("restaurantId", catchErrors(restaurantController.getRestaurantById));
 // create restaurant
 router.post(
   "/api/restaurant",
@@ -51,7 +51,7 @@ router.post(
   catchErrors(restaurantController.createRestaurant)
 );
 // read restaurant
-
+router.get("/api/restaurant/:restaurantId", restaurantController.getRestaurant);
 // update restaurant
 // delete restaurant
 

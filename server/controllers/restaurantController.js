@@ -6,3 +6,19 @@ exports.createRestaurant = async (req, res, next) => {
   const restaurant = await new Restaurant(req.body).save();
   return res.json(restaurant);
 };
+
+exports.getRestaurantById = async (req, res, next) => {
+  const { restaurantId } = req.params;
+  const restaurant = await Restaurant.findOne({ _id: restaurantId })
+    .populate('owner', ['_id', 'name', 'email', 'type', 'blockedUsers']);
+  if (!restaurant) {
+    throw Error("No restaurant found for the given id");
+  }
+
+  req.restaurant = restaurant;
+  next();
+};
+
+exports.getRestaurant = async (req, res, next) => {
+  res.send(req.restaurant);
+};
