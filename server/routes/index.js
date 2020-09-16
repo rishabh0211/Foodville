@@ -50,9 +50,15 @@ router.post(
   authController.checkRestaurantAuth,
   catchErrors(restaurantController.createRestaurant)
 );
-// read restaurant
-router.get("/api/restaurant/:restaurantId", restaurantController.getRestaurant);
-// update restaurant
+router.
+  route("/api/restaurant/:restaurantId")
+  // read restaurant
+  .get(catchErrors(restaurantController.getRestaurant))
+  // update restaurant
+  .post(
+    authController.checkRestaurantAuth,
+    catchErrors(restaurantController.updateRestaurant)
+  );
 // delete restaurant
 
 // get all owned restaurants

@@ -22,3 +22,13 @@ exports.getRestaurantById = async (req, res, next) => {
 exports.getRestaurant = async (req, res, next) => {
   res.send(req.restaurant);
 };
+
+exports.updateRestaurant = async (req, res, next) => {
+  req.body.updatedAt = new Date().toISOString();
+  const updatedRestaurant = await Restaurant.findOneAndUpdate(
+    { _id: req.restaurant._id },
+    { $set: req.body },
+    { new: true, runValidators: true }
+  );
+  res.json(updatedRestaurant);
+};
