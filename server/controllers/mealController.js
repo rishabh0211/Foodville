@@ -38,7 +38,7 @@ exports.updateMeal = async (req, res, next) => {
     { new: true, runValidators: true }
   );
   if (!meal) {
-    res.status(401).send({ message: "You are not authorized to perform this action" });
+    return res.status(401).send({ message: "You are not authorized to perform this action" });
   }
   res.json(meal);
 };
