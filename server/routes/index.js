@@ -81,8 +81,9 @@ router.post(
 );
 router.route("/api/meal/:mealId")
   // read meals in restaurant
-  .get(catchErrors(mealController.getMeal));
-// update meal in restaurant
+  .get(catchErrors(mealController.getMeal))
+  // update meal in restaurant
+  .post(catchErrors(mealController.updateMeal));
 // delete meal in restaurant
 
 // Update Order status

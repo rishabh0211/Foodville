@@ -13,6 +13,7 @@ const MealSchema = new mongoose.Schema(
       maxlength: 150
     },
     restaurantId: { type: ObjectId, ref: "Restaurant" },
+    ownerId: { type: ObjectId, ref: "User" },
     deletedAt: Date,
   },
   { timestamps: true }
