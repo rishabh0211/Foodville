@@ -17,7 +17,7 @@ const RestaurantSchema = new mongoose.Schema(
       required: [true, "Restaurant description is required"],
       trim: true
     },
-    owner: [{ type: ObjectId, ref: "User" }],
+    owner: { type: ObjectId, ref: "User" },
     meals: [{ type: ObjectId, ref: "Meal" }],
     deletedAt: Date,
   },
