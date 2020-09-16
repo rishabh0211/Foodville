@@ -63,21 +63,25 @@ router.
   // delete restaurant
   .delete(
     authController.checkIsAuthRestaurant,
-    restaurantController.deleteRestaurant
+    catchErrors(restaurantController.deleteRestaurant)
   );
 // get all owned restaurants
-  router.get('/api/restaurants', restaurantController.getAllRestaurants);
+router.get('/api/restaurants', catchErrors(restaurantController.getAllRestaurants));
 
 /**
  * RESTAURANT ROUTES: /api/meal/:mealId
  */
+
+router.param("mealId", catchErrors(mealController.getMealById));
 // create meal in restaurant
 router.post(
   "/api/meal",
   authController.checkIsRestaurant,
   catchErrors(mealController.createMeal)
 );
-// read meals in restaurant
+router.route("/api/meal/:mealId")
+  // read meals in restaurant
+  .get(catchErrors(mealController.getMeal));
 // update meal in restaurant
 // delete meal in restaurant
 
