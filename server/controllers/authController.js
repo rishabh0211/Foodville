@@ -67,9 +67,11 @@ exports.checkIsRestaurant = (req, res, next) => {
   next();
 };
 
+// checks if the current restaurant is the authorized one or not
 exports.checkIsAuthRestaurant = (req, res, next) => {
-  if (req.user._id !== req.restaurant.owner._id) {
-    return res.status(403).send({ message: "You are not allowed to perform this action" });
+  const restaurantId = mongoose.Types.ObjectId(req.restaurant.owner._id);
+  if (req.user && restaurantId.equals(req.user._id)) {
+    return next();
   }
-  next();
+  return res.status(403).send({ message: "You are not allowed to perform this action" });
 };

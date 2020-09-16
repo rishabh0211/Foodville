@@ -58,8 +58,12 @@ router.
   .post(
     authController.checkIsAuthRestaurant,
     catchErrors(restaurantController.updateRestaurant)
+  )
+  // delete restaurant
+  .delete(
+    authController.checkIsAuthRestaurant,
+    restaurantController.deleteRestaurant
   );
-// delete restaurant
 
 // get all owned restaurants
 

@@ -9,7 +9,7 @@ exports.createRestaurant = async (req, res, next) => {
 
 exports.getRestaurantById = async (req, res, next) => {
   const { restaurantId } = req.params;
-  const restaurant = await Restaurant.findOne({ _id: restaurantId })
+  const restaurant = await Restaurant.findOne({ _id: restaurantId, deletedAt: { "$exists": false } })
     .populate('owner', ['_id', 'name', 'email', 'type', 'blockedUsers']);
   if (!restaurant) {
     throw Error("No restaurant found for the given id");
@@ -31,4 +31,13 @@ exports.updateRestaurant = async (req, res, next) => {
     { new: true, runValidators: true }
   );
   res.json(updatedRestaurant);
+};
+
+exports.deleteRestaurant = async (req, res, next) => {
+  const deletedRestaurant = await Restaurant.findOneAndUpdate(
+    { _id: req.restaurant._id },
+    { deletedAt: new Date().toISOString() },
+    { new: true }
+  );
+  return res.json(deletedRestaurant);
 };
