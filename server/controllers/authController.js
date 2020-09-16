@@ -4,6 +4,7 @@ const passport = require("passport");
 const { check, validationResult } = require("express-validator");
 const { userTypes } = require('../constants');
 
+// body validate using express validator
 exports.validateSignupRules = () => {
   return [
     check("email", "Enter a valid email").isEmail().normalizeEmail(),
@@ -12,6 +13,7 @@ exports.validateSignupRules = () => {
   ];
 };
 
+// check for express validator errors
 exports.validateSignup = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
@@ -21,6 +23,7 @@ exports.validateSignup = (req, res, next) => {
   return res.status(400).send({ messgage: firstError });
 };
 
+// signup handler
 exports.signup = async (req, res, next) => {
   const { name, email, password, type = userTypes.CUSTOMER } = req.body;
   if (type !== userTypes.CUSTOMER && type !== userTypes.RESTAURANT) {
@@ -31,6 +34,7 @@ exports.signup = async (req, res, next) => {
   res.status(201).send(user);
 };
 
+// signin handler
 exports.signin = async (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
@@ -48,12 +52,14 @@ exports.signin = async (req, res, next) => {
   })(req, res, next);
 };
 
+// signout hanlder
 exports.signOut = async (req, res, next) => {
   res.clearCookie("employee-feedback.sid");
   req.logout();
   res.json({ message: "You are now signed out" });
 };
 
+// checks if it the user is of type restaurant
 exports.checkRestaurantAuth = (req, res, next) => {
   if (!req.user || req.user.type !== userTypes.RESTAURANT) {
     return res.status(401).send({ message: "You are not authorized to perform this action" });

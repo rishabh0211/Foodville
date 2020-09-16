@@ -11,6 +11,7 @@ const session = require("express-session");
 const passport = require("passport");
 
 require('./models/User');
+require('./models/Restaurant');
 const routes = require('./routes');
 require('./passport');
 
