@@ -12,6 +12,7 @@ const passport = require("passport");
 
 require('./models/User');
 require('./models/Restaurant');
+require('./models/Meal');
 const routes = require('./routes');
 require('./passport');
 

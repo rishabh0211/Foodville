@@ -3,6 +3,7 @@ const router = express.Router();
 const authController = require('../controllers/authController');
 const userController = require('../controllers/userController');
 const restaurantController = require('../controllers/restaurantController');
+const mealController = require('../controllers/mealController');
 
 /* Error handler for async / await functions */
 const catchErrors = fn => {
@@ -71,6 +72,11 @@ router.
  * RESTAURANT ROUTES: /api/meal/:mealId
  */
 // create meal in restaurant
+router.post(
+  "/api/meal",
+  authController.checkIsRestaurant,
+  catchErrors(mealController.createMeal)
+);
 // read meals in restaurant
 // update meal in restaurant
 // delete meal in restaurant
