@@ -10,8 +10,8 @@ const mongoSessionStore = require("connect-mongo");
 const session = require("express-session");
 const passport = require("passport");
 
-const routes = require('./routes');
 require('./models/User');
+const routes = require('./routes');
 require('./passport');
 
 const dev = process.env.NODE_ENV !== "production";
@@ -26,6 +26,8 @@ app.use(logger("combined"));
 app.use(cors({
   credentials: true
 }));
+
+app.use(express.json());
 
 /** Session Configuration */
 const MongoStore = mongoSessionStore(session);
