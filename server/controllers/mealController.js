@@ -11,7 +11,7 @@ exports.createMeal = async (req, res, next) => {
 
 exports.getMealById = async (req, res, next) => {
   const { mealId } = req.params;
-  const meal = await Meal.findOne({ _id: mealId });
+  const meal = await Meal.findOne({ _id: mealId, deletedAt: { $exists: false } });
   if (!meal) {
     throw Error(`Cannot find a meal by the given id ${mealId}`);
   }
@@ -33,9 +33,21 @@ exports.updateMeal = async (req, res, next) => {
   //   throw Error('You are not authorized to perform this action');
   // }
   const meal = await Meal.findOneAndUpdate(
-    { _id: req.meal._id, ownerId: req.user._id },
+    { _id: req.meal._id, ownerId: req.user._id, deletedAt: { $exists: false } },
     { $set: { name, description, price } },
     { new: true, runValidators: true }
+  );
+  if (!meal) {
+    return res.status(401).send({ message: "You are not authorized to perform this action" });
+  }
+  res.json(meal);
+};
+
+exports.deleteMeal = async (req, res, next) => {
+  const meal = await Meal.findOneAndUpdate(
+    { _id: req.meal._id, ownerId: req.user._id },
+    { $set: { deletedAt: new Date().toISOString() } },
+    { new: true }
   );
   if (!meal) {
     return res.status(401).send({ message: "You are not authorized to perform this action" });
