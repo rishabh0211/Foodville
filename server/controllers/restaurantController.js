@@ -41,3 +41,8 @@ exports.deleteRestaurant = async (req, res, next) => {
   );
   return res.json(deletedRestaurant);
 };
+
+exports.getAllRestaurants = async (req, res, next) => {
+  const restaurants = await Restaurant.find({ owner: req.user._id, deletedAt: { $exists: false } });
+  res.json(restaurants);
+};

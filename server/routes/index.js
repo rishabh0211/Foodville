@@ -64,11 +64,11 @@ router.
     authController.checkIsAuthRestaurant,
     restaurantController.deleteRestaurant
   );
-
 // get all owned restaurants
+  router.get('/api/restaurants', restaurantController.getAllRestaurants);
 
 /**
- * RESTAURANT ROUTES: /api/restaurant/:res_id/meal
+ * RESTAURANT ROUTES: /api/meal/:mealId
  */
 // create meal in restaurant
 // read meals in restaurant
