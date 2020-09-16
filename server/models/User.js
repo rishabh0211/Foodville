@@ -31,13 +31,20 @@ const userSchema = new mongoose.Schema(
       }
     },
     isRestaurantOwner: Boolean,
-    blockedUsers: [{ type: ObjectId, ref: "User" }]
+    blockedUsers: [{ type: ObjectId, ref: "User" }],
+    // restaurants: [{ type: ObjectId, ref: "Restaurant" }]
   },
   { timestamps: true }
 );
 
+const autoPopulateReviewUsers = function (next) {
+  this.populate("blockedUsers", "_id name email");
+  next();
+};
+userSchema.pre("findOne", autoPopulateReviewUsers);
+
 // Hash the plain text password before saving
-userSchema.pre("save", async function(next) {
+userSchema.pre("save", async function (next) {
   const user = this;
   if (user.isModified('password')) {
     user.password = await bcrypt.hash(user.password, 8);
@@ -53,5 +60,13 @@ userSchema.post("save", function (error, doc, next) {
     next(error);
   }
 });
+
+// delete password property from the user object
+userSchema.methods.toJSON = function () {
+  const user = this;
+  const userObject = user.toObject();
+  delete userObject.password;
+  return userObject;
+};
 
 module.exports = mongoose.model("User", userSchema);
