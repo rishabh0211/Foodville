@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Restaurant = mongoose.model("Restaurant");
+const Meal = mongoose.model("Meal");
 
 exports.createRestaurant = async (req, res, next) => {
   req.body.owner = req.user._id;
@@ -20,6 +21,8 @@ exports.getRestaurantById = async (req, res, next) => {
 };
 
 exports.getRestaurant = async (req, res, next) => {
+  const meals = await Meal.find({ restaurantId: req.restaurant._id, deletedAt: { $exists: false } });
+  req.restaurant.meals = meals;
   res.send(req.restaurant);
 };
 
@@ -38,6 +41,10 @@ exports.deleteRestaurant = async (req, res, next) => {
     { _id: req.restaurant._id },
     { deletedAt: new Date().toISOString() },
     { new: true }
+  );
+  await Meal.updateMany(
+    { restaurantId: req.restaurant._id },
+    { deletedAt: new Date().toISOString() }
   );
   return res.json(deletedRestaurant);
 };

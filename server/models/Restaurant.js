@@ -1,14 +1,16 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
+const Meal = mongoose.model("Meal");
 
-const RestaurantSchema = new mongoose.Schema(
+const restaurantSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       minlength: 2,
       maxlength: 40,
       required: [true, "Restaurant name is required"],
-      trim: true
+      trim: true,
+      unique: true
     },
     description: {
       type: String,
@@ -24,4 +26,4 @@ const RestaurantSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Restaurant", RestaurantSchema);
+module.exports = mongoose.model("Restaurant", restaurantSchema);
