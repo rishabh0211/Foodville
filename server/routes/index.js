@@ -4,6 +4,7 @@ const authController = require('../controllers/authController');
 const userController = require('../controllers/userController');
 const restaurantController = require('../controllers/restaurantController');
 const mealController = require('../controllers/mealController');
+const orderController = require('../controllers/orderController');
 
 /* Error handler for async / await functions */
 const catchErrors = fn => {
@@ -28,13 +29,6 @@ router.post(
 router.post("/api/auth/signin", authController.signin);
 // signout
 router.get("/api/auth/signout", authController.signOut);
-
-
-/**
- * USER ROUTES: /api/users
- */
-//
-router.param("userId", catchErrors(userController.getUserById));
 
 // Get All Restaurants (exclude blocked)
 // Place Order
@@ -84,10 +78,17 @@ router.route("/api/meal/:mealId")
   .get(catchErrors(mealController.getMeal))
   // update meal in restaurant
   .post(catchErrors(mealController.updateMeal))
-// delete meal in restaurant
+  // delete meal in restaurant
   .delete(catchErrors(mealController.deleteMeal));
 
 // Update Order status
 // Get order history
+
+
+/** ORDER ROUTES */
+
+// place/create order
+router.post("/api/order", catchErrors(orderController.createOrder));
+
 
 module.exports = router;
