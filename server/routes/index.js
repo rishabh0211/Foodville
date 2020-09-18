@@ -59,8 +59,11 @@ router.
     authController.checkIsAuthRestaurant,
     catchErrors(restaurantController.deleteRestaurant)
   );
+
+// get all restaurants
+router.get('/api/restaurants/all', catchErrors(restaurantController.getAllRestaurants));
 // get all owned restaurants
-router.get('/api/restaurants', catchErrors(restaurantController.getAllRestaurants));
+router.get('/api/restaurants', catchErrors(restaurantController.getAllOwnedRestaurants));
 
 /**
  * RESTAURANT ROUTES: /api/meal/:mealId
@@ -90,6 +93,7 @@ router.route("/api/meal/:mealId")
 // place/create order
 router.post("/api/order", catchErrors(orderController.createOrder));
 
+router.get("/api/orders", catchErrors(orderController.getAllOrders));
 router.post("/api/order/:orderId/update", catchErrors(orderController.updateStatus));
 
 
