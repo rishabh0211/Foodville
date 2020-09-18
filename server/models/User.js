@@ -32,7 +32,6 @@ const userSchema = new mongoose.Schema(
     },
     type: String,
     isRestaurantOwner: Boolean,
-    blockedUsers: [{ type: ObjectId, ref: "User" }],
     // restaurants: [{ type: ObjectId, ref: "Restaurant" }]
   },
   { timestamps: true }

@@ -58,3 +58,10 @@ exports.getAllRestaurants = async (req, res, next) => {
   const restaurants = await Restaurant.find({ deletedAt: { $exists: false } });
   res.send(restaurants);
 };
+
+exports.blockUser = async (req, res, next) => {
+  const { userId } = req.params;
+  req.restaurant.blockedUsers.push(userId);
+  const restaurant = await req.restaurant.save();
+  res.send(restaurant);
+};

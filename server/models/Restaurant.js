@@ -22,6 +22,7 @@ const restaurantSchema = new mongoose.Schema(
     owner: { type: ObjectId, ref: "User" },
     meals: [{ type: ObjectId, ref: "Meal" }],
     deletedAt: Date,
+    blockedUsers: [{ type: ObjectId, ref: "User" }],
   },
   { timestamps: true }
 );

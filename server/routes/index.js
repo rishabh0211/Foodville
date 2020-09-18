@@ -45,6 +45,7 @@ router.post(
   authController.checkIsRestaurant,
   catchErrors(restaurantController.createRestaurant)
 );
+router.post("/api/restaurant/:restaurantId/block/:userId", catchErrors(restaurantController.blockUser));
 router.
   route("/api/restaurant/:restaurantId")
   // read restaurant
