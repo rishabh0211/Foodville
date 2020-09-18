@@ -90,5 +90,7 @@ router.route("/api/meal/:mealId")
 // place/create order
 router.post("/api/order", catchErrors(orderController.createOrder));
 
+router.post("/api/order/:orderId/update", catchErrors(orderController.updateStatus));
+
 
 module.exports = router;

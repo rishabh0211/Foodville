@@ -17,6 +17,21 @@ exports.createOrder = async (req, res, next) => {
   res.status(201).send(order);
 };
 
+exports.updateStatus = async (req, res, next) => {
+  const { orderId } = req.params;
+  const { status } = req.body;
+  const data = {
+    status,
+    date: new Date().toISOString()
+  };
+  const order = await Order.findByIdAndUpdate(
+    { _id: orderId },
+    { $push: { statuses: data } },
+    { new: true }
+  );
+  res.send(order);
+};
+
 const addMealsAndTotalAmount = (order, reqMeals, restaurantMeals) => {
   let mealMap = {};
   let totalAmount = 0;
