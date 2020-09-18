@@ -24,7 +24,7 @@ exports.updateStatus = async (req, res, next) => {
     status,
     date: new Date().toISOString()
   };
-  const order = await Order.findByIdAndUpdate(
+  const order = await Order.findOneAndUpdate(
     { _id: orderId },
     { $push: { statuses: data } },
     { new: true }
