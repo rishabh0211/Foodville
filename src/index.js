@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
+import Home from './components/Home';
 
 ReactDOM.render(
-  <h1>Index page</h1>,
+  <Home />,
   document.getElementById('root')
 );
 
