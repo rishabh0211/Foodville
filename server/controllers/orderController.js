@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Order = mongoose.model("Order");
 const Meal = mongoose.model("Meal");
-const { orderStatuses } = require('../constants');
+const { orderStatuses, userTypes } = require('../constants');
 
 exports.createOrder = async (req, res, next) => {
   const { restaurantId, meals } = req.body;
@@ -30,6 +30,12 @@ exports.updateStatus = async (req, res, next) => {
     { new: true }
   );
   res.send(order);
+};
+
+exports.getAllOrders = async (req, res, next) => {
+  const idField = req.user.type === userTypes.CUSTOMER ? "user" : "restaurant";
+  const orders = await Order.find({ [idField]: req.user._id });
+  res.send(orders);
 };
 
 const addMealsAndTotalAmount = (order, reqMeals, restaurantMeals) => {

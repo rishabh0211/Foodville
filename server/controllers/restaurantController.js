@@ -55,7 +55,8 @@ exports.getAllOwnedRestaurants = async (req, res, next) => {
 };
 
 exports.getAllRestaurants = async (req, res, next) => {
-  const restaurants = await Restaurant.find({ deletedAt: { $exists: false } });
+  const restaurants = await Restaurant.find(
+    { blockedUsers: { $ne: req.user._id }, deletedAt: { $exists: false } });
   res.send(restaurants);
 };
 
