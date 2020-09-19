@@ -5,6 +5,7 @@ import StyledHome from "./styled/StyledHome";
 import theme from '../styles/theme';
 import Navbar from "./Navbar";
 import AppRouter from "../router/AppRouter";
+import Footer from "./Footer";
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
         <section className="main-section">
           <AppRouter />
         </section>
+        <Footer />
       </StyledHome>
     </ThemeProvider>
   )

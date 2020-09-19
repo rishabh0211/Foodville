@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     font-family: ${fonts.Montserrat};
     font-size: 1.4rem;
-    background: ${colors.lightestGray};
+    background: ${colors.white};
     color: ${colors.blue};
     margin: auto;
 
