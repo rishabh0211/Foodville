@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import StyledRestaurant from "./styled/StyledRestaurant";
 import MenuItem from "./MenuItem";
+import Cart from "./Cart";
 
 const Restaurant = () => {
 
@@ -37,8 +38,7 @@ const Restaurant = () => {
           </ul>
         </div>
         <div className="cart-container">
-          <h1 className="heading">Cart</h1>
-          <p className="item-count">8 items</p>
+          <Cart />
         </div>
       </section>
     </StyledRestaurant>

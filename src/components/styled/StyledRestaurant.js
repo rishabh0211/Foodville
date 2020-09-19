@@ -53,16 +53,17 @@ export default styled.div`
     max-width: 104rem;
     margin: auto;
     padding: 4rem 2rem;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-column-gap: 2rem;
   }
 
   .menu-container {
-    width: calc(60% - 2rem);
+    grid-column: 1 / span 6;
   }
 
   .cart-container {
-    width: calc(40% - 2rem);
+    grid-column: 8 / span 5;
   }
 
   .heading {
