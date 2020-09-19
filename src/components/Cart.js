@@ -13,6 +13,13 @@ const Cart = () => {
         <CartItem />
         <CartItem />
       </ul>
+      <div className="subtotal-row">
+        <p className="text">sub total</p>
+        <p className="price">$144</p>
+      </div>
+      <button className="btn submit-btn">
+        submit
+      </button>
     </StyledCart>
   )
 }

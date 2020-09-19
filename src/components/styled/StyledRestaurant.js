@@ -64,6 +64,9 @@ export default styled.div`
 
   .cart-container {
     grid-column: 8 / span 5;
+    /* display: grid;
+    grid-column-gap: 2rem;
+    grid-template-columns: repeat(5, 1fr); */
   }
 
   .heading {

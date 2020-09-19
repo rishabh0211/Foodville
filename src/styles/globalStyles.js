@@ -99,6 +99,14 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
 
+  .btn {
+    padding: 1.2rem 2rem;
+    background: ${colors.orange};
+    color: ${colors.white};
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
 `;
 
 export default GlobalStyle;

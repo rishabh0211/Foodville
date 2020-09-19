@@ -35,6 +35,12 @@ const Restaurant = () => {
             <MenuItem />
             <MenuItem />
             <MenuItem />
+            <MenuItem />
+            <MenuItem />
+            <MenuItem />
+            <MenuItem />
+            <MenuItem />
+            <MenuItem />
           </ul>
         </div>
         <div className="cart-container">

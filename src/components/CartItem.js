@@ -14,6 +14,15 @@ const StyledCartItem = styled.li`
     grid-column: 1 / span 3;
   }
 
+  .price {
+    text-align: right;
+  }
+
+  .subtotal-row {
+    grid-column: 1 / span 5;
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 const CartItem = () => {
