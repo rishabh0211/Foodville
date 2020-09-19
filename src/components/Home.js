@@ -10,7 +10,6 @@ const Home = () => {
   return (
     <ThemeProvider theme={theme}>
       <StyledHome>
-        <h1>Home</h1>
         <Navbar />
         <AppRouter />
       </StyledHome>

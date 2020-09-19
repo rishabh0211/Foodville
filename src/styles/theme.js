@@ -9,7 +9,9 @@ const theme = {
     gray: "#CCCFD2",
     orange: "#FF7400",
     darkBlue: "#171A29",
-    lightestGray: "#F3F5F9"
+    lightestGray: "#F3F5F9",
+    red: "#F52525",
+    green: "#1C9700"
   },
   fonts: {
     Montserrat: "Montserrat, sans-serif"

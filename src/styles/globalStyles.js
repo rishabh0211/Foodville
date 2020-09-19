@@ -26,7 +26,6 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1.4rem;
     background: ${colors.lightestGray};
     color: ${colors.blue};
-    max-width: 100rem;
     margin: auto;
 
     &.hidden {
