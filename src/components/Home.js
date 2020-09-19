@@ -11,7 +11,9 @@ const Home = () => {
     <ThemeProvider theme={theme}>
       <StyledHome>
         <Navbar />
-        <AppRouter />
+        <section className="main-section">
+          <AppRouter />
+        </section>
       </StyledHome>
     </ThemeProvider>
   )
