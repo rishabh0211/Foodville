@@ -7,9 +7,6 @@ export default styled.li`
   &:hover {
     box-shadow: 0 0.1rem 1rem rgba(0,0,0,0.2);
   }
-  &:not(:first-child) {
-    margin-top: 1.6rem;
-  }
   cursor: pointer;
   .header-row {
     display: flex;

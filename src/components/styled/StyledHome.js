@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
 export default styled.main`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
   .main-section {
-    min-height: calc(100vh - 5.9rem);
     width: 100%;
-    max-width: 104rem;
     margin: auto;
-    padding: 0 2rem;
+    flex-grow: 1;
   }
 `;
