@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Restaurant = mongoose.model("Restaurant");
 const Meal = mongoose.model("Meal");
+const { userTypes } = require("../constants");
 
 exports.createRestaurant = async (req, res, next) => {
   req.body.owner = req.user._id;
@@ -49,14 +50,19 @@ exports.deleteRestaurant = async (req, res, next) => {
   return res.json(deletedRestaurant);
 };
 
-exports.getAllOwnedRestaurants = async (req, res, next) => {
-  const restaurants = await Restaurant.find({ owner: req.user._id, deletedAt: { $exists: false } });
-  res.json(restaurants);
-};
+// exports.getAllOwnedRestaurants = async (req, res, next) => {
+//   const restaurants = await Restaurant.find({ owner: req.user._id, deletedAt: { $exists: false } });
+//   res.json(restaurants);
+// };
 
 exports.getAllRestaurants = async (req, res, next) => {
-  const restaurants = await Restaurant.find(
-    { blockedUsers: { $ne: req.user._id }, deletedAt: { $exists: false } });
+  let restaurants;
+  if (req.user.type === userTypes.CUSTOMER) {
+    restaurants = await Restaurant.find(
+      { blockedUsers: { $ne: req.user._id }, deletedAt: { $exists: false } });
+  } else {
+    restaurants = await Restaurant.find({ owner: req.user._id, deletedAt: { $exists: false } });
+  }
   res.send(restaurants);
 };
 

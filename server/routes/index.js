@@ -61,10 +61,10 @@ router.
     catchErrors(restaurantController.deleteRestaurant)
   );
 
-// get all restaurants
-router.get('/api/restaurants/all', catchErrors(restaurantController.getAllRestaurants));
+// router.get('/api/restaurants/all', catchErrors(restaurantController.getAllRestaurants));
 // get all owned restaurants
-router.get('/api/restaurants', catchErrors(restaurantController.getAllOwnedRestaurants));
+// get all restaurants
+router.get('/api/restaurants', catchErrors(restaurantController.getAllRestaurants));
 
 /**
  * RESTAURANT ROUTES: /api/meal/:mealId
