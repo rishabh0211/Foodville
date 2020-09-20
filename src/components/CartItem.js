@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Switch from "./Switch";
 
 const StyledCartItem = styled.li`
   display: grid;
@@ -29,7 +30,7 @@ const CartItem = () => {
   return (
     <StyledCartItem>
       <p className="name">Burger House Veg Cheese Melt Burger</p>
-      <div className="switch">Switch</div>
+      <Switch />
       <p className="price">$144</p>
     </StyledCartItem>
   )
