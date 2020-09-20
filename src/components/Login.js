@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import StyledLogin from "./styled/StyledLogin";
-import { login, checkLogin } from "../actions";
+import { login, checkLogin, signup } from "../actions";
+import { userTypes } from "../constants";
 
-const Login = ({ login, isAuthorized }) => {
+const Login = ({ login, isAuthorized, userCreated, signup }) => {
   const history = useHistory();
   useEffect(() => {
     if (isAuthorized) {
-        history.push('/restaurants');
+      history.push('/restaurants');
     }
   }, [isAuthorized]);
 
@@ -16,9 +17,19 @@ const Login = ({ login, isAuthorized }) => {
     username: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    isRestaurant: ""
   });
   const [showLogin, setShowLogin] = useState(true);
+  const [showNotification, setShowNotification] = useState(false);
+
+  useEffect(() => {
+    if (userCreated) {
+      resetState();
+      setShowNotification(true);
+      setShowLogin(true);
+    }
+  }, [userCreated]);
 
   const resetState = () => {
     setInputState({
@@ -26,6 +37,7 @@ const Login = ({ login, isAuthorized }) => {
       email: "",
       password: "",
       confirmPassword: "",
+      isRestaurant: ""
     });
   };
 
@@ -35,7 +47,10 @@ const Login = ({ login, isAuthorized }) => {
   };
 
   const handleInputChange = e => {
-    const { name, value } = e.target;
+    let { name, value, type, checked } = e.target;
+    if (type === 'checkbox') {
+      value = checked;
+    }
     setInputState(prevState => (
       {
         ...prevState,
@@ -54,12 +69,19 @@ const Login = ({ login, isAuthorized }) => {
 
   const handleSignup = e => {
     e.preventDefault();
-
+    const { username, email, password, isRestaurant } = inputState;
+    signup({
+      name: username,
+      email,
+      password,
+      type: isRestaurant ? userTypes.RESTAURANT : userTypes.CUSTOMER
+    });
   };
 
   return (
     <StyledLogin>
       <div className="login-section" hidden={!showLogin}>
+        {showNotification && <p className="success-msg">User successfully created! Login.</p>}
         <h1 className="heading">login</h1>
         <form className="form" autoComplete="off" onSubmit={handleLogin}>
           <div className="form-group">
@@ -141,6 +163,17 @@ const Login = ({ login, isAuthorized }) => {
             />
             <label className="form-label" htmlFor="confirmPassword">Confirm Password</label>
           </div>
+          <div className="checkbox-group">
+            <input
+              className="checkbox-input"
+              type="checkbox"
+              name="isRestaurant"
+              id="isRestaurant"
+              checked={inputState.isRestaurant}
+              onChange={handleInputChange}
+            />
+            <label className="checkbox-label" htmlFor="isRestaurant">Register as Restaurnt Owner?</label>
+          </div>
           <button className="btn login-btn" type="submit">submit</button>
           <div className="signup-text">Already a member? <a className="signup-link" onClick={toggleSection}>Login</a></div>
         </form>
@@ -151,13 +184,15 @@ const Login = ({ login, isAuthorized }) => {
 
 const mapStateToProps = state => {
   return {
-    isAuthorized: state.isAuthorized
+    isAuthorized: state.isAuthorized,
+    userCreated: state.userCreated
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: (credentails) => dispatch(login(credentails))
+    login: (credentails) => dispatch(login(credentails)),
+    signup: (credentails) => dispatch(signup(credentails))
   }
 };
 

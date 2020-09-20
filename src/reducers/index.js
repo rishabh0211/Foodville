@@ -1,4 +1,4 @@
-import {actionTypes} from "../constants";
+import { actionTypes } from "../constants";
 
 const getInitalState = () => ({
   user: {},
@@ -6,7 +6,8 @@ const getInitalState = () => ({
   restaurants: [],
   cart: [],
   isLoading: false,
-  isAuthorized: false
+  isAuthorized: false,
+  userCreated: false
 });
 
 export default (state = getInitalState(), { type, payload }) => {
@@ -22,6 +23,16 @@ export default (state = getInitalState(), { type, payload }) => {
         isLoading: false,
         user: payload.user,
         isAuthorized: true
+      };
+    case actionTypes.SIGNUP_START:
+      return {
+        ...state,
+        isLoading: false
+      };
+    case actionTypes.SIGNUP_SUCCESS:
+      return {
+        ...state,
+        userCreated: true
       };
     case actionTypes.FETCH_RESTAURANTS_START:
       return {

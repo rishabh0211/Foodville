@@ -3,8 +3,14 @@ export const actionTypes = {
   FETCH_RESTAURANTS_SUCCESS: "FV_FETCH_RESTAURANTS_SUCCESS",
   LOGIN_START: "FV_LOGIN_START",
   LOGIN_SUCCESS: "FV_LOGIN_SUCCESS",
+  SIGNUP_START: "FV_SIGNUP_START",
+  SIGNUP_SUCCESS: "FV_SIGNUP_SUCCESS",
 };
 
+export const userTypes = {
+  CUSTOMER: "customer",
+  RESTAURANT: "restaurant"
+};
 
 // to be removed
 export const API_ENDPOINT = "http://localhost:4000";

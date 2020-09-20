@@ -10,6 +10,12 @@ export default styled.section`
     text-transform: capitalize;
   }
 
+  .success-msg {
+    font-weight: 600;
+    margin: 1rem 0 2rem;
+    color: ${({theme: {colors}}) => colors.green};
+  }
+
   .form {
     margin-top: 5rem;
     max-width: 40rem;
@@ -45,6 +51,16 @@ export default styled.section`
       visibility: hidden;
       transform: translateY(-4rem);
     }
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+  }
+
+  .checkbox-label {
+    margin-left: 1.2rem;
   }
 
   .login-btn {
