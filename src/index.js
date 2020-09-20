@@ -1,15 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from "react-redux";
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from "react-router-dom";
+
 import Home from './components/Home';
 import GlobalStyle from './styles/globalStyles';
+import configureStore from "./store/configureStore";
+
+const store = configureStore();
 
 ReactDOM.render(
-  <Router>
-    <GlobalStyle />
-    <Home />
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <GlobalStyle />
+      <Home />
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
 
