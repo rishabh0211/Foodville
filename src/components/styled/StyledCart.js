@@ -25,10 +25,13 @@ export default styled.div`
     justify-content: space-between;
     margin-top: 2.4rem;
     text-transform: capitalize;
+    font-size: 1.6rem;
+    font-weight: 700;
   }
 
   .submit-btn {
     text-transform: uppercase;
     margin-top: 4rem;
+    font-weight: 700;
   }
 `;

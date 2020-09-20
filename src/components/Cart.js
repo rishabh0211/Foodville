@@ -18,7 +18,7 @@ const Cart = () => {
         <p className="price">$144</p>
       </div>
       <button className="btn submit-btn">
-        submit
+        place order
       </button>
     </StyledCart>
   )
