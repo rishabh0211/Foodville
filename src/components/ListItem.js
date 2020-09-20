@@ -1,14 +1,14 @@
 import React from "react";
 import StyledListItem from "./styled/StyledListItem";
 
-const ListItem = () => {
+const ListItem = ({ restaurant }) => {
   return (
     <StyledListItem>
       <div className="header-row">
         <img src="/Hotel.svg" alt="Restaurant" />
-        <h3 className="name">Belgian Waffles</h3>
+        <h3 className="name">{restaurant.name}</h3>
       </div>
-      <p className="desc">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+      <p className="desc">{restaurant.description}</p>
     </StyledListItem>
   )
 }

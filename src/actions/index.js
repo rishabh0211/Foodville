@@ -77,8 +77,11 @@ export const checkLogin = () => {
 export const getRestaurants = () => {
   return dispatch => {
     dispatch(getActionObj(actionTypes.FETCH_RESTAURANTS_START));
-    return fetch(`${API_ENDPOINT}/api/restaurants`)
-      .then(res => res.json)
+    return fetch(`${API_ENDPOINT}/api/restaurants`, {
+      mode: "cors",
+      credentials: "include",
+    })
+      .then(res => res.json())
       .then(restaurants => {
         dispatch(getActionObj(actionTypes.FETCH_RESTAURANTS_SUCCESS, { restaurants }));
       });
