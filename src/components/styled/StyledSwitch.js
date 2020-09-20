@@ -42,7 +42,7 @@ export default styled.div`
   .plus-btn {
     background: linear-gradient(${theme.colors.orange},${theme.colors.orange}), linear-gradient(${theme.colors.orange},${theme.colors.orange});
     background-position: center;
-    background-size: 46% 1.5px,1.5px 38%;
+    background-size: 53% 1.5px,1.5px 40%;
     background-repeat: no-repeat;
     display: inline-block;
     width: 22px;

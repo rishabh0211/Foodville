@@ -107,6 +107,15 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 500;
   }
 
+  .btn-secondary {
+    padding: .8rem 2rem;
+    text-transform: uppercase;
+    color: ${colors.orange};
+    background: ${colors.white};
+    border: solid .1rem ${colors.gray};
+    font-size: 1rem;
+  }
+
 `;
 
 export default GlobalStyle;

@@ -3,9 +3,9 @@ import styled from "styled-components";
 export default styled.li`
   padding: 2rem;
   border: solid 1px ${({ theme: { colors } }) => colors.gray};
-  transition: box-shadow .2s ease-in-out;
+  transition: border-color .3s ease-in-out;
   &:hover {
-    box-shadow: 0 0.1rem 1rem rgba(0,0,0,0.2);
+    border-color: ${({ theme: { colors } }) => colors.orange};
   }
   cursor: pointer;
   .header-row {
