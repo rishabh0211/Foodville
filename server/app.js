@@ -27,7 +27,8 @@ if (!dev) {
 }
 app.use(logger("combined"));
 app.use(cors({
-  credentials: true
+  credentials: true,
+  origin: ['http://localhost:3000']
 }));
 
 app.use(express.json());

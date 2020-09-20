@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import { connect } from "react-redux";
 
@@ -7,9 +7,14 @@ import theme from '../styles/theme';
 import Navbar from "./Navbar";
 import AppRouter from "../router/AppRouter";
 import Footer from "./Footer";
-import { getRestaurants } from "../actions";
+import { getRestaurants, checkLogin } from "../actions";
 
-const Home = ({ getRestaurants }) => {
+const Home = ({ getRestaurants, checkLogin }) => {
+
+  useEffect(() => {
+    // checkLogin();
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <StyledHome>
@@ -25,7 +30,8 @@ const Home = ({ getRestaurants }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getRestaurants: () => dispatch(getRestaurants())
+    getRestaurants: () => dispatch(getRestaurants()),
+    checkLogin: () => dispatch(checkLogin())
   };
 };
 

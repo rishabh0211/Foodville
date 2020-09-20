@@ -52,6 +52,13 @@ exports.signin = async (req, res, next) => {
   })(req, res, next);
 };
 
+exports.checkLogin = async (req, res) => {
+  if (req.user) {
+    return res.send(req.user);
+  }
+  res.status(401).send({ message: "User is not logged in " });
+};
+
 // signout hanlder
 exports.signOut = async (req, res, next) => {
   res.clearCookie("employee-feedback.sid");

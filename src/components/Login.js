@@ -1,21 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 import StyledLogin from "./styled/StyledLogin";
+import { login, checkLogin } from "../actions";
 
-class Login extends React.Component {
+const Login = ({ login, isAuthorized }) => {
+  const history = useHistory();
+  useEffect(() => {
+    if (isAuthorized) {
+        history.push('/restaurants');
+    }
+  }, [isAuthorized]);
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      showLogin: true
-    };
-  }
+  const [inputState, setInputState] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
+  const [showLogin, setShowLogin] = useState(true);
 
-  resetState = () => {
-    this.setState({
+  const resetState = () => {
+    setInputState({
       username: "",
       email: "",
       password: "",
@@ -23,124 +29,136 @@ class Login extends React.Component {
     });
   };
 
-  toggleSection = () => {
-    this.resetState();
-    this.setState({
-      showLogin: !this.state.showLogin
-    });
+  const toggleSection = () => {
+    resetState();
+    setShowLogin(!showLogin);
   };
 
-  handleInputChange = e => {
+  const handleInputChange = e => {
     const { name, value } = e.target;
-    this.setState({
-      [name]: value
+    setInputState(prevState => (
+      {
+        ...prevState,
+        [name]: value
+      }
+    ));
+  };
+
+  const handleLogin = e => {
+    e.preventDefault();
+    login({
+      email: inputState.email,
+      password: inputState.password
     });
   };
 
-  handleLogin = e => {
+  const handleSignup = e => {
     e.preventDefault();
 
   };
 
-  handleSignup = e => {
-    e.preventDefault();
-
-  };
-
-  render() {
-    const { showLogin, email, password, confirmPassword, name } = this.state;
-
-    return (
-      <StyledLogin>
-        <div className="login-section" hidden={!showLogin}>
-          <h1 className="heading">login</h1>
-          <form className="form" autoComplete="off" onSubmit={this.handleLogin}>
-            <div className="form-group">
-              <input
-                className="form-control"
-                type="text"
-                name="email"
-                id="email"
-                placeholder="Email"
-                value={email}
-                onChange={this.handleInputChange}
-              />
-              <label className="form-label" htmlFor="email">Email</label>
-            </div>
-            <div className="form-group">
-              <input
-                className="form-control"
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
-                value={password}
-                onChange={this.handleInputChange}
-              />
-              <label className="form-label" htmlFor="password">Password</label>
-            </div>
-            <button className="btn login-btn" type="submit">login</button>
-            <p className="signup-text">New to Foodville? <p className="signup-link" onClick={this.toggleSection}>Signup</p></p>
-          </form>
-        </div>
-        <div className="signup-section" hidden={showLogin}>
-          <h1 className="heading">Sign up</h1>
-          <form className="form" autoComplete="off" onSubmit={this.handleSignup}>
-            <div className="form-group">
-              <input
-                className="form-control"
-                type="text"
-                name="username"
-                id="username"
-                placeholder="Name"
-                value={name}
-                onChange={this.handleInputChange}
-              />
-              <label className="form-label" htmlFor="username">Name</label>
-            </div>
-            <div className="form-group">
-              <input
-                className="form-control"
-                type="text"
-                name="email"
-                id="email"
-                placeholder="Email"
-                value={email}
-                onChange={this.handleInputChange}
-              />
-              <label className="form-label" htmlFor="email">Email</label>
-            </div>
-            <div className="form-group">
-              <input
-                className="form-control"
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
-                value={password}
-                onChange={this.handleInputChange}
-              />
-              <label className="form-label" htmlFor="password">Password</label>
-            </div>
-            <div className="form-group">
-              <input
-                className="form-control"
-                type="password"
-                name="confirmPassword"
-                id="confirmPassword"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={this.handleInputChange}
-              />
-              <label className="form-label" htmlFor="confirmPassword">Confirm Password</label>
-            </div>
-            <button className="btn login-btn" type="submit">submit</button>
-            <p className="signup-text">Already a member? <p className="signup-link" onClick={this.toggleSection}>Login</p></p>
-          </form>
-        </div>
-      </StyledLogin>
-    )
-  }
+  return (
+    <StyledLogin>
+      <div className="login-section" hidden={!showLogin}>
+        <h1 className="heading">login</h1>
+        <form className="form" autoComplete="off" onSubmit={handleLogin}>
+          <div className="form-group">
+            <input
+              className="form-control"
+              type="text"
+              name="email"
+              id="email"
+              placeholder="Email"
+              value={inputState.email}
+              onChange={handleInputChange}
+            />
+            <label className="form-label" htmlFor="email">Email</label>
+          </div>
+          <div className="form-group">
+            <input
+              className="form-control"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              value={inputState.password}
+              onChange={handleInputChange}
+            />
+            <label className="form-label" htmlFor="password">Password</label>
+          </div>
+          <button className="btn login-btn" type="submit">login</button>
+          <div className="signup-text">New to Foodville? <a className="signup-link" onClick={toggleSection}>Signup</a></div>
+        </form>
+      </div>
+      <div className="signup-section" hidden={showLogin}>
+        <h1 className="heading">Sign up</h1>
+        <form className="form" autoComplete="off" onSubmit={handleSignup}>
+          <div className="form-group">
+            <input
+              className="form-control"
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Name"
+              value={inputState.name}
+              onChange={handleInputChange}
+            />
+            <label className="form-label" htmlFor="username">Name</label>
+          </div>
+          <div className="form-group">
+            <input
+              className="form-control"
+              type="text"
+              name="email"
+              id="email"
+              placeholder="Email"
+              value={inputState.email}
+              onChange={handleInputChange}
+            />
+            <label className="form-label" htmlFor="email">Email</label>
+          </div>
+          <div className="form-group">
+            <input
+              className="form-control"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              value={inputState.password}
+              onChange={handleInputChange}
+            />
+            <label className="form-label" htmlFor="password">Password</label>
+          </div>
+          <div className="form-group">
+            <input
+              className="form-control"
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              placeholder="Confirm Password"
+              value={inputState.confirmPassword}
+              onChange={handleInputChange}
+            />
+            <label className="form-label" htmlFor="confirmPassword">Confirm Password</label>
+          </div>
+          <button className="btn login-btn" type="submit">submit</button>
+          <div className="signup-text">Already a member? <a className="signup-link" onClick={toggleSection}>Login</a></div>
+        </form>
+      </div>
+    </StyledLogin>
+  )
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    isAuthorized: state.isAuthorized
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    login: (credentails) => dispatch(login(credentails))
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

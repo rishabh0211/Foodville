@@ -27,6 +27,7 @@ router.post(
 );
 // signin
 router.post("/api/auth/signin", authController.signin);
+router.get("/api/auth/checkLogin", authController.checkLogin);
 // signout
 router.get("/api/auth/signout", authController.signOut);
 

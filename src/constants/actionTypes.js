@@ -1,5 +1,0 @@
-export const FETCH_RESTAURANTS_START = "FV_FETCH_RESTAURANTS_START";
-export const FETCH_RESTAURANTS_SUCCESS = "FV_FETCH_RESTAURANTS_SUCCESS";
-
-// to be removed
-export const API_ENDPOINT = "http://localhost:4000";

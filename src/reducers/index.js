@@ -1,27 +1,40 @@
-import * as actions from "../constants/actionTypes";
+import {actionTypes} from "../constants";
 
 const getInitalState = () => ({
   user: {},
   orders: [],
   restaurants: [],
   cart: [],
-  isLoading: false
+  isLoading: false,
+  isAuthorized: false
 });
 
-export default (state = getInitalState(), action) => {
-  switch(action.type) {
-    case actions.FETCH_RESTAURANTS_START:
+export default (state = getInitalState(), { type, payload }) => {
+  switch (type) {
+    case actionTypes.LOGIN_START:
       return {
         ...state,
         isLoading: true
       };
-    case actions.FETCH_RESTAURANTS_SUCCESS: 
+    case actionTypes.LOGIN_SUCCESS:
       return {
         ...state,
-        restaurants: action.restaurants,
+        isLoading: false,
+        user: payload.user,
+        isAuthorized: true
+      };
+    case actionTypes.FETCH_RESTAURANTS_START:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case actionTypes.FETCH_RESTAURANTS_SUCCESS:
+      return {
+        ...state,
+        restaurants: payload.restaurants,
         isLoading: false
       };
-    default: 
+    default:
       return state;
   }
 };
