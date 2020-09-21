@@ -23,7 +23,7 @@ const Navbar = ({ user }) => {
           </Link>
           </li>
           <li className="nav-item name">{user.name}</li>
-          <li className="nav-item nav-login">login</li>
+          <li className="nav-item nav-login">logout</li>
         </ul>
       </div>
     </StyledNavbar>

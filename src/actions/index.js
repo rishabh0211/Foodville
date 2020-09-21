@@ -118,3 +118,60 @@ export const addItemToCart = item => {
 export const removeItemFromCart = item => {
   return getActionObj(actionTypes.REMOVE_ITEM_FROM_CART, { item });
 };
+
+export const addRestaurant = restaurant => {
+  return dispatch => {
+    dispatch(getActionObj(actionTypes.CREATE_RESTAURANT_START));
+    return fetch(`${API_ENDPOINT}/api/restaurant`, {
+      method: "POST",
+      body: JSON.stringify(restaurant),
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+      .then(res => {
+        if (res.status === 201) {
+          return res.json();
+        } else {
+          throw Error("User not created!");
+        }
+      })
+      .then(restaurant => {
+        dispatch(getActionObj(actionTypes.CREATE_RESTAURANT_SUCCESS, { restaurant }));
+      });
+  };
+};
+
+export const updateRestaurant = (restaurantId, reqObj) => {
+  return dispatch => {
+    dispatch(getActionObj(actionTypes.UPDATE_RESTAURANT_START));
+    return fetch(`${API_ENDPOINT}/api/restaurant/${restaurantId}`, {
+      method: "POST",
+      body: JSON.stringify(reqObj),
+      mode: "cors",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+      .then(res => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          throw Error("User not created!");
+        }
+      })
+      .then(restaurant => {
+        dispatch(getActionObj(actionTypes.UPDATE_RESTAURANT_SUCCESS, { restaurant }));
+        dispatch(getRestaurants());
+      }).catch(e => {
+        console.log(e);
+      });
+  };
+};
+
+export const setRestaurantCreatedToFalse = () => {
+  return getActionObj(actionTypes.SET_RESTAURANT_CREATED_TO_FALSE);
+};

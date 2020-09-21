@@ -6,7 +6,7 @@ const { userTypes } = require("../constants");
 exports.createRestaurant = async (req, res, next) => {
   req.body.owner = req.user._id;
   const restaurant = await new Restaurant(req.body).save();
-  return res.json(restaurant);
+  return res.status(201).json(restaurant);
 };
 
 exports.getRestaurantById = async (req, res, next) => {

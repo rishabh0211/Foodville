@@ -8,7 +8,9 @@ const getInitalState = () => ({
   selectedRestaurant: {},
   isLoading: false,
   isAuthorized: false,
-  userCreated: false
+  userCreated: false,
+  restaurantCreated: false,
+  restaurantUpdated: false
 });
 
 export default (state = getInitalState(), { type, payload }) => {
@@ -41,9 +43,10 @@ export default (state = getInitalState(), { type, payload }) => {
         isLoading: true
       };
     case actionTypes.FETCH_RESTAURANTS_SUCCESS:
+      const restaurants = payload.restaurants.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       return {
         ...state,
-        restaurants: payload.restaurants,
+        restaurants,
         isLoading: false
       };
     case actionTypes.FETCH_RESTAURANT_START:
@@ -90,6 +93,36 @@ export default (state = getInitalState(), { type, payload }) => {
         ...state,
         cart
       };
+    case actionTypes.CREATE_RESTAURANT_START:
+      return {
+        ...state,
+        isLoading: true,
+        restaurantCreated: false
+      };
+    case actionTypes.CREATE_RESTAURANT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        restaurantCreated: true,
+        restaurants: [payload.restaurant, ...state.restaurants]
+      };
+    case actionTypes.UPDATE_RESTAURANT_START: 
+      return {
+        ...state,
+        isLoading: true,
+        restaurantUpdated: false
+      };
+    case actionTypes.UPDATE_RESTAURANT_SUCCESS:
+      return {
+        ...state,
+        restaurantUpdated: true,
+        isLoading: false
+      };
+    case actionTypes.SET_RESTAURANT_CREATED_TO_FALSE:
+      return {
+        ...state,
+        restaurantCreated: false
+      }
     default:
       return state;
   }
