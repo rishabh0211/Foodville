@@ -5,6 +5,7 @@ const getInitalState = () => ({
   orders: [],
   restaurants: [],
   cart: [],
+  selectedRestaurant: {},
   isLoading: false,
   isAuthorized: false,
   userCreated: false
@@ -44,6 +45,17 @@ export default (state = getInitalState(), { type, payload }) => {
         ...state,
         restaurants: payload.restaurants,
         isLoading: false
+      };
+    case actionTypes.FETCH_RESTAURANT_START:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case actionTypes.FETCH_RESTAURANT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        selectedRestaurant: payload.restaurant
       };
     default:
       return state;

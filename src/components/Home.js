@@ -8,8 +8,9 @@ import Navbar from "./Navbar";
 import AppRouter from "../router/AppRouter";
 import Footer from "./Footer";
 import { getRestaurants, checkLogin } from "../actions";
+import Loader from "./Loader";
 
-const Home = ({ getRestaurants, checkLogin }) => {
+const Home = ({ getRestaurants, checkLogin, isLoading }) => {
 
   useEffect(() => {
     // checkLogin();
@@ -19,6 +20,7 @@ const Home = ({ getRestaurants, checkLogin }) => {
     <ThemeProvider theme={theme}>
       <StyledHome>
         <Navbar />
+        {isLoading && <Loader />}
         <section className="main-section">
           <AppRouter />
         </section>
@@ -37,7 +39,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-
+    isLoading: state.isLoading
   };
 };
 

@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import StyledRestaurant from "./styled/StyledRestaurant";
 import MenuItem from "./MenuItem";
 import Cart from "./Cart";
+import { getRestaurant } from "../actions";
 
-const Restaurant = () => {
+const Restaurant = ({ selectedRestaurant, getRestaurant }) => {
 
   const { restaurantId } = useParams();
+
+  useEffect(() => {
+    getRestaurant(restaurantId);
+  }, []);
 
   return (
     <StyledRestaurant>
@@ -14,35 +20,29 @@ const Restaurant = () => {
         <div className="inner-container">
           <ul className="bread-crumb">
             <li className="bread-crumb-item">Home</li>
-            <li className="bread-crumb-item">Name</li>
+            <li className="bread-crumb-item">{selectedRestaurant.name}</li>
           </ul>
           <div className="name-container">
             <img className="image" src="/Hotel.svg" alt="Restaurant" />
-            <h1 className="name">Burger House</h1>
+            <h1 className="name">{selectedRestaurant.name}</h1>
           </div>
-          <p className="desc">American, Continental, Fast Food, Beverages</p>
+          <p className="desc">{selectedRestaurant.description}</p>
         </div>
       </header>
       <section className="middle-section">
-        <div className="menu-container">
-          <h1 className="heading">Menu</h1>
-          <p className="item-count">8 items</p>
-          <ul className="menu-list">
-            <MenuItem />
-            <MenuItem />
-            <MenuItem />
-            <MenuItem />
-            <MenuItem />
-            <MenuItem />
-            <MenuItem />
-            <MenuItem />
-            <MenuItem />
-            <MenuItem />
-            <MenuItem />
-            <MenuItem />
-            <MenuItem />
-          </ul>
-        </div>
+        {selectedRestaurant.meals && 
+          <div className="menu-container">
+            <h1 className="heading">Menu</h1>
+            <p className="item-count">{selectedRestaurant.meals.length} items</p>
+            {selectedRestaurant.meals && !!selectedRestaurant.meals.length &&
+              <ul className="menu-list">
+                {selectedRestaurant.meals.map(meal => (
+                  <MenuItem meal={meal} />
+                ))}
+              </ul>
+            }
+          </div>
+        }
         <div className="cart-container">
           <Cart />
         </div>
@@ -51,4 +51,16 @@ const Restaurant = () => {
   )
 }
 
-export default Restaurant;
+const mapStateToProps = state => {
+  return {
+    selectedRestaurant: state.selectedRestaurant
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getRestaurant: restaurantId => dispatch(getRestaurant(restaurantId))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Restaurant);

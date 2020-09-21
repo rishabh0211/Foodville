@@ -1,11 +1,11 @@
 import React from "react";
 import StyledMenuItem from "./styled/StyledMenuItem";
 
-const MenuItem = () => {
+const MenuItem = ({ meal }) => {
   return (
     <StyledMenuItem>
-      <h3 className="name">Burger House Veg Cheese Melt Burger</h3>
-      <p className="price">$144</p>
+      <h3 className="name">{meal.name}</h3>
+      <p className="price">${meal.price}</p>
       <button className="btn-add">add</button>
     </StyledMenuItem>
   )

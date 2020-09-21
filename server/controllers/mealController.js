@@ -12,6 +12,8 @@ exports.createMeal = async (req, res, next) => {
   req.body.price = +req.body.price;
   req.body.ownerId = req.user._id;
   const meal = await new Meal(req.body).save();
+  // restaurant.meals.push(meal._id);
+  // await restaurant.save();
   res.status(201).json(meal);
 };
 

@@ -87,3 +87,26 @@ export const getRestaurants = () => {
       });
   };
 };
+
+export const getRestaurant = (restaurantId) => {
+  return dispatch => {
+    dispatch(getActionObj(actionTypes.FETCH_RESTAURANT_START));
+    return fetch(`${API_ENDPOINT}/api/restaurant/${restaurantId}`, {
+      mode: "cors",
+      credentials: "include",
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          throw Error("Could not find the restaurant");
+        }
+      })
+      .then(restaurant => {
+        dispatch(getActionObj(actionTypes.FETCH_RESTAURANT_SUCCESS, { restaurant }));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+};
