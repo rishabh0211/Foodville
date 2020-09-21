@@ -1,6 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 import Switch from "./Switch";
+import { removeItemFromCart, addItemToCart } from "../actions";
 
 const StyledCartItem = styled.li`
   display: grid;
@@ -26,14 +28,30 @@ const StyledCartItem = styled.li`
   }
 `;
 
-const CartItem = ({ meal }) => {
+const CartItem = ({ meal, removeItemFromCart, addItemToCart }) => {
+
+  const handleMinusClick = () => {
+    removeItemFromCart(meal);
+  };
+
+  const handleAddClick = () => {
+    addItemToCart(meal);
+  };
+
   return (
     <StyledCartItem>
       <p className="name">{meal.name}</p>
-      <Switch />
+      <Switch quantity={meal.quantity} handleMinusClick={handleMinusClick} handlePlusClick={handleAddClick} />
       <p className="price">${meal.price * meal.quantity}</p>
     </StyledCartItem>
   )
 }
 
-export default CartItem;
+const mapDispatchToProps = dispatch => {
+  return {
+    addItemToCart: item => dispatch(addItemToCart(item)),
+    removeItemFromCart: item => dispatch(removeItemFromCart(item))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(CartItem);

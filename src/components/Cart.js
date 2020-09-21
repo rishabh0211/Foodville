@@ -4,6 +4,11 @@ import StyledCart from "./styled/StyledCart";
 import CartItem from "./CartItem";
 
 const Cart = ({ cart }) => {
+
+  const getTotalAmount = () => {
+    return cart.reduce((acc, val) => acc + (val.quantity * val.price), 0);
+  };
+
   return (
     <StyledCart>
       <h1 className="heading">Cart</h1>
@@ -11,13 +16,13 @@ const Cart = ({ cart }) => {
       {!!cart.length ?
         <>
           <ul className="items-list">
-            {cart.map(meal => {
-              return meal ? <CartItem meal={meal} key={meal._id} /> : ""
-            })}
+            {cart.map(meal => (
+              <CartItem meal={meal} key={meal._id+meal.quantity} />
+            ))}
           </ul>
           <div className="subtotal-row">
             <p className="text">sub total</p>
-            <p className="price">$144</p>
+            <p className="price">${getTotalAmount()}</p>
           </div>
           <button className="btn submit-btn">
             place order
