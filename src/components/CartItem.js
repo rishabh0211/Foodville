@@ -26,12 +26,12 @@ const StyledCartItem = styled.li`
   }
 `;
 
-const CartItem = () => {
+const CartItem = ({ meal }) => {
   return (
     <StyledCartItem>
-      <p className="name">Burger House Veg Cheese Melt Burger</p>
+      <p className="name">{meal.name}</p>
       <Switch />
-      <p className="price">$144</p>
+      <p className="price">${meal.price * meal.quantity}</p>
     </StyledCartItem>
   )
 }

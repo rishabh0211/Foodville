@@ -110,3 +110,7 @@ export const getRestaurant = (restaurantId) => {
       });
   };
 };
+
+export const addItemToCart = item => {
+  return getActionObj(actionTypes.ADD_ITEM_TO_CART, { item });
+};

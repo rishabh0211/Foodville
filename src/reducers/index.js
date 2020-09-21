@@ -57,6 +57,23 @@ export default (state = getInitalState(), { type, payload }) => {
         isLoading: false,
         selectedRestaurant: payload.restaurant
       };
+    case actionTypes.ADD_ITEM_TO_CART:
+      const meals = [...state.cart];
+      let found = false;
+      for (let i = 0; i < meals.length; i++) {
+        if (meals[i]._id === payload.item._id) {
+          meals[i].quantity++;
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        meals.push({ ...payload.item, quantity: 1 });
+      }
+      return {
+        ...state,
+        cart: meals
+      };
     default:
       return state;
   }

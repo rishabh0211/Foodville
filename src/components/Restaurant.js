@@ -30,14 +30,14 @@ const Restaurant = ({ selectedRestaurant, getRestaurant }) => {
         </div>
       </header>
       <section className="middle-section">
-        {selectedRestaurant.meals && 
+        {selectedRestaurant.meals &&
           <div className="menu-container">
             <h1 className="heading">Menu</h1>
             <p className="item-count">{selectedRestaurant.meals.length} items</p>
             {selectedRestaurant.meals && !!selectedRestaurant.meals.length &&
               <ul className="menu-list">
                 {selectedRestaurant.meals.map(meal => (
-                  <MenuItem meal={meal} />
+                  <MenuItem meal={meal} key={meal._id} />
                 ))}
               </ul>
             }
