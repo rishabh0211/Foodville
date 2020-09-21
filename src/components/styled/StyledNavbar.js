@@ -34,6 +34,16 @@ export default styled.nav`
 
   .nav-item {
     cursor: pointer;
+
+    &:not(:first-child) {
+      margin-left: 2rem;
+    }
+    &.main {
+      text-transform: uppercase;
+    }
+    &.name {
+      opacity: 50%;
+    }
   }
 
   .nav-login {

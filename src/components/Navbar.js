@@ -1,8 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import StyledNavbar from "./styled/StyledNavbar";
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
   return (
     <StyledNavbar>
       <div className="nav-container">
@@ -11,12 +12,34 @@ const Navbar = () => {
           <h3 className="logo__text-light">VILLE</h3>
         </Link>
         <ul className="nav-options">
-          <li className="nav-item">Sign Up</li>
-          <li className="nav-item nav-login">Login</li>
+          <li className="nav-item main">
+            <Link to="/orders">
+              orders
+          </Link>
+          </li>
+          <li className="nav-item main">
+            <Link to="/restaurants">
+              restaurants
+          </Link>
+          </li>
+          <li className="nav-item name">{user.name}</li>
+          <li className="nav-item nav-login">login</li>
         </ul>
       </div>
     </StyledNavbar>
   )
 }
 
-export default Navbar;
+const mapDispatchToProps = dispatch => {
+  return {
+
+  };
+};
+
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
