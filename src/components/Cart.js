@@ -11,9 +11,9 @@ const Cart = ({ cart }) => {
       {!!cart.length ?
         <>
           <ul className="items-list">
-            {cart.map(meal => (
-              <CartItem meal={meal} key={meal._id} />
-            ))}
+            {cart.map(meal => {
+              return meal ? <CartItem meal={meal} key={meal._id} /> : ""
+            })}
           </ul>
           <div className="subtotal-row">
             <p className="text">sub total</p>

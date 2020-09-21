@@ -18,14 +18,17 @@ export default styled.li`
     color: ${({theme: {colors}}) => colors.darkestGray};
   }
 
+  .btn-container {
+    position: absolute;
+    bottom: 1.6rem;
+    right: 0;
+  }
+
   .btn-add {
     padding: .8rem 2rem;
     text-transform: uppercase;
     color: ${({theme: {colors}}) => colors.orange};
     background: ${({theme: {colors}}) => colors.white};
     border: solid .1rem ${({theme: {colors}}) => colors.gray};
-    position: absolute;
-    bottom: 1.6rem;
-    right: 0;
   }
 `;

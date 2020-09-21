@@ -114,3 +114,7 @@ export const getRestaurant = (restaurantId) => {
 export const addItemToCart = item => {
   return getActionObj(actionTypes.ADD_ITEM_TO_CART, { item });
 };
+
+export const removeItemFromCart = item => {
+  return getActionObj(actionTypes.REMOVE_ITEM_FROM_CART, { item });
+};

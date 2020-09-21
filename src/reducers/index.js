@@ -74,6 +74,22 @@ export default (state = getInitalState(), { type, payload }) => {
         ...state,
         cart: meals
       };
+    case actionTypes.REMOVE_ITEM_FROM_CART:
+      let cart = JSON.parse(JSON.stringify(state.cart));
+      cart = cart.map(item => {
+        if (item._id === payload.item._id) {
+          if (item.quantity === 1) {
+            return null;
+          } else {
+            item.quantity--;
+          }
+        }
+        return item;
+      }).filter(item => !!item);
+      return {
+        ...state,
+        cart
+      };
     default:
       return state;
   }
