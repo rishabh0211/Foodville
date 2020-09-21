@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import StyledRestaurantsList from "./styled/StyledRestaurantsList";
 import ListItem from "./ListItem";
 import { getRestaurants } from "../actions";
+import { userTypes } from "../constants";
 
 const RestaurantsList = ({ user, getRestaurants, restaurants }) => {
 
@@ -12,8 +13,15 @@ const RestaurantsList = ({ user, getRestaurants, restaurants }) => {
   }, []);
 
   return (
-    <StyledRestaurantsList>
-      <h1 className="section-heading">Explore from the best in town</h1>
+    <StyledRestaurantsList isRestaurantOwner={user.type !== userTypes.CUSTOMER}>
+      <div className="header">
+        <h1 className="section-heading">{
+          user.type === userTypes.CUSTOMER ? "Explore from the best in town" : "My Restaurants"
+        }</h1>
+        {user.type === userTypes.RESTAURANT &&
+          <button className="btn add-btn">add</button>
+        }
+      </div>
       {restaurants && !!restaurants.length &&
         <ul className="list-container">
           {restaurants.map(restaurant => (

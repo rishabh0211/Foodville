@@ -5,9 +5,21 @@ export default styled.div`
   max-width: 104rem;
   margin: auto;
 
-  .section-heading {
+  .header {
     text-align: center;
-    font-size: 3.2rem;
+    ${(props) => props.isRestaurantOwner && {
+    display: "flex",
+    justifyContent: "space-between",
+    textAlign: "left"
+  }}
+
+    .section-heading {
+      font-size: 3.2rem;
+    }
+
+    .add-btn {
+      padding: 1.2rem 5rem;
+    }
   }
 
   .list-container {

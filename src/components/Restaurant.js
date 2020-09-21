@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import StyledRestaurant from "./styled/StyledRestaurant";
 import MenuItem from "./MenuItem";
 import Cart from "./Cart";
@@ -19,7 +20,9 @@ const Restaurant = ({ selectedRestaurant, getRestaurant }) => {
       <header className="header">
         <div className="inner-container">
           <ul className="bread-crumb">
-            <li className="bread-crumb-item">Home</li>
+            <li className="bread-crumb-item">
+              <Link to="/restaurants">Home</Link>
+            </li>
             <li className="bread-crumb-item">{selectedRestaurant.name}</li>
           </ul>
           <div className="name-container">
