@@ -31,6 +31,7 @@ export const actionTypes = {
   FETCH_ORDER_SUCCESS: "FV_FETCH_ORDER_SUCCESS",
   UPDATE_ORDER_STATUS_START: "FV_UPDATE_ORDER_STATUS_START",
   UPDATE_ORDER_STATUS_SUCCESS: "FV_UPDATE_ORDER_STATUS_SUCCESS",
+  SHOW_CLEAR_CART_MODAL: "FV_SHOW_CLEAR_CART_MODAL",
 };
 
 export const userTypes = {
@@ -73,5 +74,5 @@ export const orderNextStaus = {
 };
 
 // to be removed
-// export const API_ENDPOINT = "http://localhost:4000";
-export const API_ENDPOINT = "";
+export const API_ENDPOINT = "http://localhost:4000";
+// export const API_ENDPOINT = "";

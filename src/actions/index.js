@@ -132,8 +132,8 @@ export const getRestaurant = (restaurantId) => {
   };
 };
 
-export const addItemToCart = item => {
-  return getActionObj(actionTypes.ADD_ITEM_TO_CART, { item });
+export const addItemToCart = (item, clearCart) => {
+  return getActionObj(actionTypes.ADD_ITEM_TO_CART, { item, clearCart });
 };
 
 export const removeItemFromCart = item => {
@@ -381,6 +381,9 @@ export const updateOrderStatus = (orderId, reqPayload) => {
       .catch(e => {
         console.log(e);
       });
-  }
+  };
 };
 
+export const setShowClearCartModal = (showModal, meal) => {
+  return getActionObj(actionTypes.SHOW_CLEAR_CART_MODAL, { showModal, meal });
+};

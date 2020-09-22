@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import StyledMenuItem from "./styled/StyledMenuItem";
-import { addItemToCart, removeItemFromCart } from "../actions";
+import { addItemToCart, removeItemFromCart, setShowClearCartModal } from "../actions";
 import Switch from "./Switch";
 import { userTypes } from "../constants";
 import theme from "../styles/theme";
 
-const MenuItem = ({ user, meal, addItemToCart, cart, removeItemFromCart, onEditClick, onDeleteClick }) => {
+const MenuItem = ({ user, meal, addItemToCart, cart, removeItemFromCart, onEditClick, onDeleteClick, cartRestaurantId, selectedRestaurant, setShowClearCartModal }) => {
   const [quantity, setQuantity] = useState(0);
   const [isMealPresentInCart, setIsMealPresentInCart] = useState(false);
 
@@ -17,6 +17,9 @@ const MenuItem = ({ user, meal, addItemToCart, cart, removeItemFromCart, onEditC
   }, [cart]);
 
   const handleAddClick = () => {
+    if (cartRestaurantId && selectedRestaurant._id !== cartRestaurantId) {
+      return setShowClearCartModal(true, meal);
+    }
     addItemToCart(meal);
   };
 
@@ -82,14 +85,17 @@ const MenuItem = ({ user, meal, addItemToCart, cart, removeItemFromCart, onEditC
 const mapStateToProps = state => {
   return {
     cart: state.cart,
-    user: state.user
+    user: state.user,
+    cartRestaurantId: state.cartRestaurantId,
+    selectedRestaurant: state.selectedRestaurant
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     addItemToCart: item => dispatch(addItemToCart(item)),
-    removeItemFromCart: item => dispatch(removeItemFromCart(item))
+    removeItemFromCart: item => dispatch(removeItemFromCart(item)),
+    setShowClearCartModal: (showModal, meal) => dispatch(setShowClearCartModal(showModal, meal))
   };
 };
 

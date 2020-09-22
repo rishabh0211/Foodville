@@ -8,8 +8,9 @@ import Cart from "./Cart";
 import { getRestaurant, addMenuItem, updateMealItem, fetchDeleteMenuItem } from "../actions";
 import { userTypes } from "../constants";
 import AddItemModal from "./AddItemModal";
+import ClearCartModal from "./ClearCartModal";
 
-const Restaurant = ({ user, selectedRestaurant, getRestaurant, addMenuItem, updateMealItem, fetchDeleteMenuItem }) => {
+const Restaurant = ({ user, showClearCartModal, selectedRestaurant, getRestaurant, addMenuItem, updateMealItem, fetchDeleteMenuItem }) => {
 
   const { restaurantId } = useParams();
   const [showAddItemModal, setShowAddItemModal] = useState(false);
@@ -104,6 +105,9 @@ const Restaurant = ({ user, selectedRestaurant, getRestaurant, addMenuItem, upda
           mealToEdit={mealToEdit}
         />
       }
+      {showClearCartModal &&
+        <ClearCartModal />
+      }
     </StyledRestaurant>
   )
 }
@@ -111,7 +115,8 @@ const Restaurant = ({ user, selectedRestaurant, getRestaurant, addMenuItem, upda
 const mapStateToProps = state => {
   return {
     selectedRestaurant: state.selectedRestaurant,
-    user: state.user
+    user: state.user,
+    showClearCartModal: state.showClearCartModal
   };
 };
 

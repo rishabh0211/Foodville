@@ -11,10 +11,12 @@ const getInitalState = () => ({
   userCreated: false,
   restaurantCreated: false,
   restaurantUpdated: false,
-  cartRestaurantId: ''
+  cartRestaurantId: '',
+  showClearCartModal: false,
+  mealToAddAfterClearCart: null
 });
 
-let selectedRestaurant, meals;
+let selectedRestaurant, meals, cartRestaurantId;
 
 export default (state = getInitalState(), { type, payload }) => {
   switch (type) {
@@ -76,8 +78,8 @@ export default (state = getInitalState(), { type, payload }) => {
         selectedRestaurant: payload.restaurant
       };
     case actionTypes.ADD_ITEM_TO_CART:
-      let cartRestaurantId = state.selectedRestaurant._id;
-      meals = [...state.cart];
+      cartRestaurantId = state.selectedRestaurant._id;
+      meals = payload.clearCart ? [] : [...state.cart];
       let found = false;
       for (let i = 0; i < meals.length; i++) {
         if (meals[i]._id === payload.item._id) {
@@ -106,9 +108,11 @@ export default (state = getInitalState(), { type, payload }) => {
         }
         return item;
       }).filter(item => !!item);
+      cartRestaurantId = !!cart.length ? state.cartRestaurantId : "";
       return {
         ...state,
-        cart
+        cart,
+        cartRestaurantId
       };
     case actionTypes.CREATE_RESTAURANT_START:
       return {
@@ -246,6 +250,13 @@ export default (state = getInitalState(), { type, payload }) => {
         ...state,
         isLoading: false,
         orders
+      };
+    case actionTypes.SHOW_CLEAR_CART_MODAL:
+      const mealToAddAfterClearCart = payload.meal;
+      return {
+        ...state,
+        showClearCartModal: payload.showModal,
+        mealToAddAfterClearCart
       };
     default:
       return state;
