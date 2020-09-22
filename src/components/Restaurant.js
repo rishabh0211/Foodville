@@ -59,7 +59,11 @@ const Restaurant = ({ user, showClearCartModal, selectedRestaurant, getRestauran
             <li className="bread-crumb-item">
               <Link to="/restaurants">Home</Link>
             </li>
-            <li className="bread-crumb-item">{selectedRestaurant.name}</li>
+            <li className="bread-crumb-item">
+              <Link to="/cart">
+                {selectedRestaurant.name}
+              </Link>
+            </li>
           </ul>
           <div className="name-container">
             <img className="image" src="/Hotel.svg" alt="Restaurant" />
@@ -78,7 +82,7 @@ const Restaurant = ({ user, showClearCartModal, selectedRestaurant, getRestauran
               }
             </div>
             <p className="item-count">{selectedRestaurant.meals.length} items</p>
-            {selectedRestaurant.meals && !!selectedRestaurant.meals.length &&
+            {selectedRestaurant.meals && !!selectedRestaurant.meals.length ?
               <ul className="menu-list">
                 {selectedRestaurant.meals.map(meal => (
                   <MenuItem
@@ -89,6 +93,8 @@ const Restaurant = ({ user, showClearCartModal, selectedRestaurant, getRestauran
                   />
                 ))}
               </ul>
+              :
+              <p className="empty-msg">No meals present</p>
             }
           </div>
         }

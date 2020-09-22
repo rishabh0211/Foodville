@@ -49,7 +49,7 @@ const Cart = ({ cart, orderPlaced, cartRestaurantId, placeOrder, setOrderPlacedT
           </button>
         </>
         :
-        <p>Your have an empty cart.</p>
+        <p className="empty-msg">Your have an empty cart.</p>
       }
     </StyledCart>
   )

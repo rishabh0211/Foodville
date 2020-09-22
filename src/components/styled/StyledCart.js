@@ -1,10 +1,16 @@
 import styled from "styled-components";
+import { media } from "../../styles";
 
 export default styled.div`
   position: sticky;
   top: 0;
   grid-column: 1 / span 5;
   height: fit-content;
+
+  ${media.tablet`
+    max-width: 60rem;
+    padding: 2rem;
+  `}
   
   .heading {
     font-size: 3.2rem;

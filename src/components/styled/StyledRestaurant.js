@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../../styles";
 
 export default styled.div`
   .header {
@@ -60,13 +61,17 @@ export default styled.div`
 
   .menu-container {
     grid-column: 1 / span 6;
+    ${media.tablet`
+      grid-column: 1 / span 12;
+    `}
   }
 
   .cart-container {
     grid-column: 8 / span 5;
-    /* display: grid;
-    grid-column-gap: 2rem;
-    grid-template-columns: repeat(5, 1fr); */
+
+    ${media.tablet`
+      display: none;
+    `}
   }
 
   .menu-header {

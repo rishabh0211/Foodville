@@ -118,6 +118,11 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1rem;
   }
 
+  .empty-msg {
+    margin-top: 3rem;
+    font-size: 1.4rem;
+  }
+
 `;
 
 export default GlobalStyle;
