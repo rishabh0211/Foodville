@@ -42,7 +42,7 @@
     "start-front": "react-scripts start",
     "build-front": "react-scripts build",
     "dev": "concurrently \"npm run start-server\" \"npm run start-front\" --kill-others",
-    "start": "env-cmd -f ./config/dev.env node server/app.js",
+    "start": "node server/app.js",
     "test": "env-cmd -f ./config/test.env jest --watch --runInBand",
     "eject": "react-scripts eject"
   },
