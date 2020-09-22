@@ -16,6 +16,9 @@ const MenuItem = ({ user, meal, addItemToCart, cart, removeItemFromCart, onEditC
     setIsMealPresentInCart(checkMealPresentInCart());
   }, [cart]);
 
+  /**
+   * Handles the click on add item button. Show either the Clear cart modal or makes an api call 
+   */
   const handleAddClick = () => {
     if (cartRestaurantId && selectedRestaurant._id !== cartRestaurantId) {
       return setShowClearCartModal(true, meal);
@@ -23,6 +26,9 @@ const MenuItem = ({ user, meal, addItemToCart, cart, removeItemFromCart, onEditC
     addItemToCart(meal);
   };
 
+  /**
+   * Checks whether the meal is already present in the cart
+   */
   const checkMealPresentInCart = () => {
     for (let i = 0; i < cart.length; i++) {
       if (cart[i]._id === meal._id) {
@@ -33,15 +39,24 @@ const MenuItem = ({ user, meal, addItemToCart, cart, removeItemFromCart, onEditC
     return false;
   };
 
+  /**
+   * Handles the click on minus button. Decreases the quantity in cart
+   */
   const handleMinusClick = () => {
     removeItemFromCart(meal);
   };
 
+  /**
+   * Handled the click on edit meal icon
+   */
   const handleEditClick = e => {
     e.preventDefault();
     onEditClick(meal);
   };
 
+  /**
+   * Handled the click on delete meal icon
+   */
   const handleDeleteClick = e => {
     e.preventDefault();
     onDeleteClick(meal._id);

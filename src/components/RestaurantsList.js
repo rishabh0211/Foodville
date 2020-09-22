@@ -33,12 +33,18 @@ const RestaurantsList = ({ user, getRestaurants, restaurants, addRestaurant, res
     }
   }, [restaurantUpdated]);
 
+  /**
+   * Handles the cancel click on add/edit restaurant modal
+   */
   const onCancelClick = () => {
     setShowAddRestaurant(false);
     setShowEditRestaurant(false);
     setRestaurantToEdit({});
   };
 
+  /**
+   * Handles the cancel click on add/edit restaurant modal
+   */
   const onSubmitClick = ({ restaurantName, description }) => {
     const reqObj = {
       name: restaurantName,
@@ -52,11 +58,19 @@ const RestaurantsList = ({ user, getRestaurants, restaurants, addRestaurant, res
     }
   };
 
+  /**
+   * Handles the click on edit restaurant icon
+   * @param {Object} restaurant 
+   */
   const editRestaurant = restaurant => {
     setShowEditRestaurant(true);
     setRestaurantToEdit(restaurant);
   };
 
+  /**
+   * Handles the click on delete restaurant icon
+   * @param {Object} restaurant 
+   */
   const deleteRestaurant = (restaurant) => {
     fetchDeleteRestaurant(restaurant);
   };

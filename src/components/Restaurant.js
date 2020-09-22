@@ -20,6 +20,9 @@ const Restaurant = ({ user, showClearCartModal, selectedRestaurant, getRestauran
     getRestaurant(restaurantId);
   }, []);
 
+  /**
+   * Handles the save meal item click. Makes an api call to add/edit meal
+   */
   const handleSaveMenuItem = ({ menuName, price }) => {
     const reqObj = {
       price,
@@ -37,16 +40,25 @@ const Restaurant = ({ user, showClearCartModal, selectedRestaurant, getRestauran
     setMealToEdit(null);
   };
 
+  /**
+   * Handles the cancel clicl on add/edit meal modal.
+   */
   const handleCancelItem = () => {
     setShowAddItemModal(false);
     setMealToEdit(null);
   };
 
+  /**
+   * Handled the click on edit meal icon. Opens the edit meal modal
+   */
   const onEditClick = meal => {
     setMealToEdit(meal);
     setShowAddItemModal(true);
   };
 
+  /**
+   * Handles the click on delete meal icon
+   */
   const onDeleteClick = id => {
     fetchDeleteMenuItem(id);
   };

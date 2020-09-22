@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import StyledLogin from "./styled/StyledLogin";
-import { login, checkLogin, signup } from "../actions";
+import { login, signup } from "../actions";
 import { userTypes } from "../constants";
 
 const Login = ({ login, isAuthorized, userCreated, signup }) => {
@@ -20,8 +20,11 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
     confirmPassword: "",
     isRestaurant: ""
   });
+  // stores which section to show
   const [showLogin, setShowLogin] = useState(true);
+  // flag to show/hide user created message
   const [showNotification, setShowNotification] = useState(false);
+  // stores the error to be displayed
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -32,6 +35,9 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
     }
   }, [userCreated]);
 
+  /**
+   * resets the state
+   */
   const resetState = () => {
     setInputState({
       username: "",
@@ -43,11 +49,17 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
     setError("");    
   };
 
+  /**
+   * Funtion to toggle the section between login and signup
+   */
   const toggleSection = () => {
     resetState();
     setShowLogin(!showLogin);
   };
 
+  /**
+   * Handles the input change
+   */
   const handleInputChange = e => {
     setError('');
     let { name, value, type, checked } = e.target;
@@ -62,6 +74,9 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
     ));
   };
 
+  /**
+   * Handles the login form submit
+   */
   const handleLogin = e => {
     e.preventDefault();
     login({
@@ -70,6 +85,9 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
     });
   };
 
+  /**
+   * Validates name field
+   */
   const checkNameError = () => {
     if (!inputState.username || inputState.username.length < 2) {
       setError('Name should be atleat 2 characters long');
@@ -78,6 +96,9 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
     return true;
   };
 
+  /**
+   * Validates email field
+   */
   const checkEmailError = () => {
     const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const valid = regex.test(inputState.email);
@@ -87,6 +108,9 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
     return valid;
   };
 
+  /**
+   * Validates password and confirm password
+   */
   const checkPasswordError = () => {
     if (inputState.password.length < 7) {
       setError("Password should be greater than 6 characters");
@@ -99,6 +123,9 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
     return true;
   };
 
+  /**
+   * Handles the singup form submit
+   */
   const handleSignup = e => {
     e.preventDefault();
     const isValid = checkNameError() && checkEmailError() && checkPasswordError();
@@ -117,6 +144,7 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
     <StyledLogin>
       <div className="login-section" hidden={!showLogin}>
         {showNotification && <p className="success-msg">User successfully created! Login.</p>}
+        {/* LOGIN SECTION */}
         <h1 className="heading">login</h1>
         <form className="form" autoComplete="off" onSubmit={handleLogin}>
           <div className="form-group">
@@ -148,6 +176,7 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
           <div className="signup-text">New to Foodville? <p tabIndex="1" className="signup-link" onClick={toggleSection}>Signup</p></div>
         </form>
       </div>
+      {/* SIGNUP SECTION */}
       <div className="signup-section" hidden={showLogin}>
         <h1 className="heading">Sign up</h1>
         <form className="form" autoComplete="off" onSubmit={handleSignup}>

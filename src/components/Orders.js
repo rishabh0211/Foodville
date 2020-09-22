@@ -11,6 +11,7 @@ const Orders = ({ orders, fetchOrders }) => {
     fetchOrders();
   }, []);
 
+  // stores the active index correponding to the order which is expanded
   const [activeIndex, setActiveIndex] = useState(-1);
 
   return (

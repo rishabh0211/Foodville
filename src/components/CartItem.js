@@ -30,10 +30,16 @@ const StyledCartItem = styled.li`
 
 const CartItem = ({ meal, removeItemFromCart, addItemToCart }) => {
 
+  /**
+   * Handles the click on minus button. Decreases the quantity in cart
+   */
   const handleMinusClick = () => {
     removeItemFromCart(meal);
   };
 
+  /**
+   * Handles the click on plus button. Increases the quantity in cart
+   */
   const handleAddClick = () => {
     addItemToCart(meal);
   };

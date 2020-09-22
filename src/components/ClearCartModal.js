@@ -52,10 +52,16 @@ const StyledClearCartModal = styled.div`
 
 const ClearCartModal = ({ mealToAddAfterClearCart, setShowClearCartModal, addItemToCart }) => {
 
+  /**
+   * Handles the click on cancel button. Closes the clearCartModal.
+   */
   const handleCancelClick = () => {
     setShowClearCartModal(false);
   };
 
+  /**
+   * Handles the click on clearCart button. Dispatches an action to clear cart and add new item
+   */
   const handleClearCart = () => {
     addItemToCart(mealToAddAfterClearCart, true);
     setShowClearCartModal(false);

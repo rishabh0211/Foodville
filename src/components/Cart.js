@@ -14,10 +14,16 @@ const Cart = ({ cart, orderPlaced, cartRestaurantId, placeOrder, setOrderPlacedT
     }
   }, [orderPlaced]);
 
+  /**
+   * Calculates and returns the total cart amount
+   */
   const getTotalAmount = () => {
     return cart.reduce((acc, val) => acc + (val.quantity * val.price), 0);
   };
 
+  /**
+   * Handles the click on place order button. Makes an api call to place the order
+   */
   const handlePlaceOrder = () => {
     const cartObj = cart.map(({ _id, quantity }) => {
       return { _id, quantity };

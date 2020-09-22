@@ -8,6 +8,9 @@ import { updateOrderStatus, blockUser } from "../actions";
 
 const OrderItem = ({ user, order, index, activeIndex, setActiveIndex, updateOrderStatus, blockUser }) => {
 
+  /**
+   * Handles the click on top container. Collapses/Expands bottom container
+   */
   const handleTopContainerClick = () => {
     if (activeIndex === index) {
       setActiveIndex(-1);
@@ -15,19 +18,26 @@ const OrderItem = ({ user, order, index, activeIndex, setActiveIndex, updateOrde
       setActiveIndex(index);
     }
   };
-
+  // Stores the most recent order status
   const orderStatus = order.statuses[order.statuses.length - 1].status;
 
+  /**
+   * Handles the update order status. 
+   */
   const handleUpdateStatus = () => {
     updateOrderStatus(order._id, { status: orderNextStaus[user.type][orderStatus] });
   };
 
+  /**
+   * Handled the block user action.
+   */
   const handleBlockUser = () => {
     blockUser(order.user._id, order.restaurant._id);
   };
 
   return (
     <StyledOrderItem>
+      {/* TOP CONTAINER */}
       <div className="top-container" onClick={handleTopContainerClick}>
         <div className="left">
           <div className="restaurant">
@@ -58,6 +68,7 @@ const OrderItem = ({ user, order, index, activeIndex, setActiveIndex, updateOrde
           <MdKeyboardArrowDown className={`icon ${activeIndex === index ? "active" : ""}`} size={30} />
         </div>
       </div>
+      {/* BOTTOM CONTAINER */}
       {index === activeIndex &&
         <div className="bottom-container">
           <div className="status-container">

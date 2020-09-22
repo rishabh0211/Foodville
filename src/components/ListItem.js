@@ -8,11 +8,17 @@ import theme from "../styles/theme";
 
 const ListItem = ({ user, restaurant, editRestaurant, deleteRestaurant }) => {
 
+  /**
+   * Handles the click on edit icon
+   */
   const handleEditClick = e => {
     e.preventDefault();
     editRestaurant(restaurant);
   };
 
+  /**
+   * Handles the click on delete icon
+   */
   const handleDeleteClick = e => {
     e.preventDefault();
     deleteRestaurant(restaurant);
@@ -51,10 +57,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ListItem);
+export default connect(mapStateToProps)(ListItem);

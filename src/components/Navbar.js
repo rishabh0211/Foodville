@@ -25,17 +25,26 @@ const Navbar = ({ user, logoutUser, isAuthorized }) => {
     }
   }, [isAuthorized]);
 
+  /**
+   * Handles the click event outside of the navbar on mobile. Closes the navbar if clicked outside
+   */
   const handleClickOutside = useCallback(e => {
     if (menu && menu.current && !menu.current.contains(e.target)) {
       closeMenu();
     }
   }, [menu]);
 
+  /**
+   * Closes the nav menu on mobile
+   */
   const closeMenu = () => {
     window.removeEventListener("click", handleClickOutside);
     setMenuOpen(false);
   };
 
+  /**
+   * Handles the click on burger icon. Opens/closes nav menu
+   */
   const handleBurgerClick = () => {
     setNoAnim(false);
     if (menuOpen) {
@@ -44,6 +53,9 @@ const Navbar = ({ user, logoutUser, isAuthorized }) => {
     setMenuOpen(true);
   };
 
+  /**
+   * Handles the click on logout link on nav menu on mobile
+   */
   const onMobLogoutClick = () => {
     closeMenu();
     logoutUser();

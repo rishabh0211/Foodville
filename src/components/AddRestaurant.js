@@ -6,12 +6,18 @@ const AddRestaurant = ({ restaurant, isAdd, onCancelClick, onSubmitClick }) => {
   const [restaurantName, setRestaurantName] = useState(restaurant.name);
   const [description, setDescription] = useState(restaurant.description);
 
+  /**
+   * Handles the click on cancel button. Resets the state and closes the modal
+   */
   const handleCancelClick = e => {
     setRestaurantName('');
     setDescription('');
     onCancelClick();
   };
 
+  /**
+   * Handles the form submit action.
+   */
   const handleSubmit = e => {
     e.preventDefault();
     onSubmitClick({ restaurantName, description });
