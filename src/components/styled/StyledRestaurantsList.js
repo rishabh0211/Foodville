@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../../styles";
 
 export default styled.div`
   padding: 4rem 2rem 5rem 2rem;
@@ -15,10 +16,16 @@ export default styled.div`
 
     .section-heading {
       font-size: 3.2rem;
+      ${media.tablet`
+        font-size: 2.4rem;
+      `}
     }
 
     .add-btn {
       padding: 1.2rem 5rem;
+      ${media.tablet`
+        padding: 1rem 2rem;
+      `}
     }
   }
 

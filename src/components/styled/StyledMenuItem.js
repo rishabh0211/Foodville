@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../../styles";
 
 export default styled.li`
   padding-bottom: 2.2rem;
@@ -16,7 +17,11 @@ export default styled.li`
         margin-right: 1rem;
       }
     }
+    ${media.tablet`
+      display: block;
+    `}
   }
+
 
   &:hover {
     .right {

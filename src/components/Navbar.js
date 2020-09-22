@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import StyledNavbar, { StyledBurgerContainer } from "./styled/StyledNavbar";
 import { logoutUser } from "../actions";
+import { userTypes } from "../constants";
 
 const Navbar = ({ user, logoutUser, isAuthorized }) => {
   const history = useHistory();
@@ -89,9 +90,11 @@ const Navbar = ({ user, logoutUser, isAuthorized }) => {
                 <li className="nav-item">
                   <Link to="/restaurants" onClick={closeMenu}>restaurants</Link>
                 </li>
-                <li className="nav-item">
-                  <Link to="/cart" onClick={closeMenu}>cart</Link>
-                </li>
+                {user.type === userTypes.CUSTOMER && 
+                  <li className="nav-item">
+                    <Link to="/cart" onClick={closeMenu}>cart</Link>
+                  </li>
+                }
                 <li className="nav-item" onClick={onMobLogoutClick}>
                   logout
                 </li>

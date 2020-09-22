@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../../styles";
 
 export default styled.li`
   padding: 2rem;
@@ -20,13 +21,21 @@ export default styled.li`
 
   .right {
     display: none;
-
+    margin-left: 1rem;
     .icon {
       &:first-child {
         margin-right: 1rem;
       }
     }
   }
+
+  ${media.tablet`
+    .right {
+      ${(props) => props.isRestaurantOwner && {
+        display: "block"
+      }}
+    }
+  `}
 
   .header-row {
     display: flex;

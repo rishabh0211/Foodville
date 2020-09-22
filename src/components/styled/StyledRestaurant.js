@@ -38,10 +38,17 @@ export default styled.div`
     margin-top: 2rem;
     .image {
       width: 4rem;
+      ${media.tablet`
+        width: 2.8rem;
+      `}
     }
     .name {
       font-size: 3.2rem;
       margin-left: 2rem;
+      ${media.tablet`
+        font-size: 2.4rem;
+        margin-left: 1.4rem;
+      `}
     }
   }
 
