@@ -75,6 +75,7 @@ export default styled.nav`
   }
   .mobile-links-container {
     visibility: hidden;
+    position: absolute;
   }
   ${media.tablet`
     .mobile-links-container {

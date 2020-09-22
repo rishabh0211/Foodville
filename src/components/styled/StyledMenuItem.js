@@ -37,8 +37,13 @@ export default styled.li`
     font-weight: 500;
   }
 
+  .description {
+    margin-top: .4rem;
+    font-size: 1.2rem;
+  }
+
   .price {
-    margin-top: 2rem;
+    margin-top: 1rem;
     color: ${({ theme: { colors } }) => colors.darkestGray};
   }
 

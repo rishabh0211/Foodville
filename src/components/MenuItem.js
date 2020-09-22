@@ -66,6 +66,7 @@ const MenuItem = ({ user, meal, addItemToCart, cart, removeItemFromCart, onEditC
     <StyledMenuItem>
       <div className="left">
         <h3 className="name">{meal.name}</h3>
+        <p className="description">{meal.description}</p>
         <p className="price">${meal.price}</p>
         {user.type === userTypes.CUSTOMER &&
           <div className="btn-container">

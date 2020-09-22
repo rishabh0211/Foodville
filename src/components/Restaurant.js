@@ -23,9 +23,10 @@ const Restaurant = ({ user, showClearCartModal, selectedRestaurant, getRestauran
   /**
    * Handles the save meal item click. Makes an api call to add/edit meal
    */
-  const handleSaveMenuItem = ({ menuName, price }) => {
+  const handleSaveMenuItem = ({ menuName, price, description }) => {
     const reqObj = {
       price,
+      description,
       name: menuName
     };
     if (mealToEdit) {
