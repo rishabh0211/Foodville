@@ -1,13 +1,34 @@
 import styled from "styled-components";
+import { hex2rgba } from "../../utils";
 
 export default styled.div`
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: ${(props) => hex2rgba(props.theme.colors.black, 0.5)};
+  z-index: 11;
+
+  .modal {
+    background: ${(props) => props.theme.colors.white};
+    padding: 4rem 8.4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80rem;
+    width: calc(100% - 4rem);
+  }
+
   .heading {
     font-size: 3.2rem;
+    text-transform: capitalize;
   }
+
   .form {
-    margin-top: 5rem;
     max-width: 40rem;
+    margin-top: 4rem;
   }
 
   .form-group {
@@ -44,15 +65,15 @@ export default styled.div`
 
   .textarea {
     .form-label {
-      transform: translateY(-23rem);
+      transform: translateY(-18rem);
     }
 
     .form-control {
-      height: 20rem;
+      height: 15rem;
       resize: none;
       font-size: 1.4rem;
       &:placeholder-shown + .form-label {
-        transform: translateY(-19rem);
+        transform: translateY(-14rem);
       }
     }
   }

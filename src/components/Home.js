@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import StyledHome from "./styled/StyledHome";
 import theme from '../styles/theme';
@@ -10,10 +11,12 @@ import Footer from "./Footer";
 import { getRestaurants, checkLogin } from "../actions";
 import Loader from "./Loader";
 
-const Home = ({ getRestaurants, checkLogin, isLoading }) => {
-
+const Home = ({ user, getRestaurants, checkLogin, isLoading }) => {
+  const history = useHistory();
   useEffect(() => {
-    // checkLogin();
+    // if (!user || !!Object.keys(user).length) {
+    //   history.push("/");
+    // }
   }, []);
 
   return (
@@ -39,7 +42,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    isLoading: state.isLoading
+    isLoading: state.isLoading,
+    user: state.user
   };
 };
 

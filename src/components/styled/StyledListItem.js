@@ -7,6 +7,8 @@ export default styled.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
+
   &:hover {
     border-color: ${({ theme: { colors } }) => colors.orange};
     .right {
@@ -26,7 +28,6 @@ export default styled.li`
     }
   }
 
-  cursor: pointer;
   .header-row {
     display: flex;
   }

@@ -75,6 +75,7 @@ const GlobalStyle = createGlobalStyle`
   input, textarea {
     border-radius: 0;
     outline: 0;
+    font-family: ${theme.fonts.Montserrat};
 
     &:focus {
       outline: 0;

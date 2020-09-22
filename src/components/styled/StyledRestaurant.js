@@ -69,6 +69,11 @@ export default styled.div`
     grid-template-columns: repeat(5, 1fr); */
   }
 
+  .menu-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .heading {
     font-size: 3.2rem;
     font-weight: 600;

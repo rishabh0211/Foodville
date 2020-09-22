@@ -2,8 +2,27 @@ import styled from "styled-components";
 
 export default styled.li`
   padding-bottom: 2.2rem;
-  border-bottom: solid .1rem ${({theme: {colors}}) => colors.gray};
+  border-bottom: solid .1rem ${({ theme: { colors } }) => colors.gray};
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .right {
+    display: none;
+    .icon {
+      cursor: pointer;
+      &:first-child {
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  &:hover {
+    .right {
+      display: block;
+    }
+  }
 
   &:not(:first-child) {
     margin-top: 1.6rem;
@@ -15,7 +34,7 @@ export default styled.li`
 
   .price {
     margin-top: 2rem;
-    color: ${({theme: {colors}}) => colors.darkestGray};
+    color: ${({ theme: { colors } }) => colors.darkestGray};
   }
 
   .btn-container {
@@ -27,8 +46,8 @@ export default styled.li`
   .btn-add {
     padding: .8rem 2rem;
     text-transform: uppercase;
-    color: ${({theme: {colors}}) => colors.orange};
-    background: ${({theme: {colors}}) => colors.white};
-    border: solid .1rem ${({theme: {colors}}) => colors.gray};
+    color: ${({ theme: { colors } }) => colors.orange};
+    background: ${({ theme: { colors } }) => colors.white};
+    border: solid .1rem ${({ theme: { colors } }) => colors.gray};
   }
 `;

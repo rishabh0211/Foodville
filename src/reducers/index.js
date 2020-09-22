@@ -13,6 +13,8 @@ const getInitalState = () => ({
   restaurantUpdated: false
 });
 
+let selectedRestaurant, meals;
+
 export default (state = getInitalState(), { type, payload }) => {
   switch (type) {
     case actionTypes.LOGIN_START:
@@ -43,7 +45,7 @@ export default (state = getInitalState(), { type, payload }) => {
         isLoading: true
       };
     case actionTypes.FETCH_RESTAURANTS_SUCCESS:
-      const restaurants = payload.restaurants.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      const restaurants = payload.restaurants.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
       return {
         ...state,
         restaurants,
@@ -55,13 +57,14 @@ export default (state = getInitalState(), { type, payload }) => {
         isLoading: true
       };
     case actionTypes.FETCH_RESTAURANT_SUCCESS:
+      payload.restaurant.meals = payload.restaurant.meals.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
       return {
         ...state,
         isLoading: false,
         selectedRestaurant: payload.restaurant
       };
     case actionTypes.ADD_ITEM_TO_CART:
-      const meals = [...state.cart];
+      meals = [...state.cart];
       let found = false;
       for (let i = 0; i < meals.length; i++) {
         if (meals[i]._id === payload.item._id) {
@@ -134,6 +137,50 @@ export default (state = getInitalState(), { type, payload }) => {
         ...state,
         isLoading: false,
         restaurants: list
+      };
+    case actionTypes.ADD_MENU_ITEM_START:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case actionTypes.ADD_MENU_ITEM_SUCCESS:
+      selectedRestaurant = JSON.parse(JSON.stringify(state.selectedRestaurant));
+      selectedRestaurant.meals = [payload.meal, ...selectedRestaurant.meals];
+      return {
+        ...state,
+        isLoading: false,
+        selectedRestaurant
+      };
+    case actionTypes.UPDATE_MENU_ITEM_START:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case actionTypes.UPDATE_MENU_ITEM_SUCCESS:
+      selectedRestaurant = JSON.parse(JSON.stringify(state.selectedRestaurant));
+      selectedRestaurant.meals = selectedRestaurant.meals.map(meal => {
+        if (meal._id === payload.meal._id) {
+          return payload.meal;
+        }
+        return meal;
+      });
+      return {
+        ...state,
+        isLoading: false,
+        selectedRestaurant
+      };
+    case actionTypes.DELETE_MENU_ITEM_START:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case actionTypes.DELETE_MENU_ITEM_SUCCESS:
+      selectedRestaurant = JSON.parse(JSON.stringify(state.selectedRestaurant));
+      selectedRestaurant.meals = selectedRestaurant.meals.filter(meal => meal._id !== payload.meal._id);
+      return {
+        ...state,
+        isLoading: false,
+        selectedRestaurant
       };
     default:
       return state;

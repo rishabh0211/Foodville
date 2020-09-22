@@ -199,3 +199,83 @@ export const fetchDeleteRestaurant = restaurant => {
       });
   };
 };
+
+export const addMenuItem = reqPayload => {
+  return dispatch => {
+    dispatch(getActionObj(actionTypes.ADD_MENU_ITEM_START));
+    return fetch(`${API_ENDPOINT}/api/meal`, {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      body: JSON.stringify(reqPayload),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+      .then(res => {
+        if (res.status === 201) {
+          return res.json();
+        } else {
+          throw Error("Meal not created!");
+        }
+      })
+      .then(meal => {
+        dispatch(getActionObj(actionTypes.ADD_MENU_ITEM_SUCCESS, { meal }));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+};
+
+export const updateMealItem = (mealId, reqPayload) => {
+  return dispatch => {
+    dispatch(getActionObj(actionTypes.UPDATE_MENU_ITEM_START));
+    return fetch(`${API_ENDPOINT}/api/meal/${mealId}`, {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      body: JSON.stringify(reqPayload),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+      .then(res => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          throw Error("Meal not updated!");
+        }
+      })
+      .then(meal => {
+        dispatch(getActionObj(actionTypes.UPDATE_MENU_ITEM_SUCCESS, { meal }));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+};
+
+export const fetchDeleteMenuItem = mealId => {
+  return dispatch => {
+    dispatch(getActionObj(actionTypes.DELETE_MENU_ITEM_START));
+    return fetch(`${API_ENDPOINT}/api/meal/${mealId}`, {
+      method: "DELETE",
+      mode: "cors",
+      credentials: "include",
+    })
+      .then(res => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          throw Error("Meal not deleted!");
+        }
+      })
+      .then(meal => {
+        dispatch(getActionObj(actionTypes.DELETE_MENU_ITEM_SUCCESS, { meal }));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+};
