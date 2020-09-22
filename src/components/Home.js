@@ -7,7 +7,6 @@ import theme from '../styles/theme';
 import Navbar from "./Navbar";
 import AppRouter from "../router/AppRouter";
 import Footer from "./Footer";
-import { getRestaurants, checkLogin } from "../actions";
 import Loader from "./Loader";
 
 const Home = ({ isLoading }) => {
@@ -24,13 +23,6 @@ const Home = ({ isLoading }) => {
     </ThemeProvider>
   )
 }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     getRestaurants: () => dispatch(getRestaurants()),
-//     checkLogin: () => dispatch(checkLogin())
-//   };
-// };
 
 const mapStateToProps = state => {
   return {

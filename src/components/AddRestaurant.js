@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import StyledAddRestaurant from "./styled/StyledAddRestaurant";
 
 const AddRestaurant = ({ restaurant, isAdd, onCancelClick, onSubmitClick }) => {
   const [restaurantName, setRestaurantName] = useState(restaurant.name);
   const [description, setDescription] = useState(restaurant.description);
+  const [error, setError] = useState('');
 
   /**
    * Handles the click on cancel button. Resets the state and closes the modal
@@ -20,7 +20,21 @@ const AddRestaurant = ({ restaurant, isAdd, onCancelClick, onSubmitClick }) => {
    */
   const handleSubmit = e => {
     e.preventDefault();
+    if (!restaurantName || !description) {
+      setError("All the fields are mandatory");
+      return;
+    }
     onSubmitClick({ restaurantName, description });
+  };
+
+  const handleNameChange = e => {
+    setError('');
+    setRestaurantName(e.target.value);
+  };
+
+  const handleDescriptionChange = e => {
+    setError('');
+    setDescription(e.target.value);
   };
 
   return (
@@ -35,7 +49,7 @@ const AddRestaurant = ({ restaurant, isAdd, onCancelClick, onSubmitClick }) => {
             id="resName"
             placeholder="Restaurant Name"
             value={restaurantName}
-            onChange={e => setRestaurantName(e.target.value)}
+            onChange={handleNameChange}
           />
           <label className="form-label" htmlFor="resName">Restaurant Name</label>
         </div>
@@ -47,10 +61,11 @@ const AddRestaurant = ({ restaurant, isAdd, onCancelClick, onSubmitClick }) => {
             id="description"
             placeholder="Description"
             value={description}
-            onChange={e => setDescription(e.target.value)}
+            onChange={handleDescriptionChange}
           />
           <label className="form-label" htmlFor="description">Description</label>
         </div>
+        {error && <p className="err-msg">{error}</p>}
         <div className="btn-container">
           <button className="btn save-btn" type="submit">save</button>
           <button className="btn-secondary cancel-btn" type="button" onClick={handleCancelClick}>cancel</button>

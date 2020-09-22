@@ -123,6 +123,11 @@ const GlobalStyle = createGlobalStyle`
     font-size: 1.4rem;
   }
 
+  .err-msg {
+    margin: 1rem 0;
+    color: ${colors.red};
+  }
+
 `;
 
 export default GlobalStyle;
