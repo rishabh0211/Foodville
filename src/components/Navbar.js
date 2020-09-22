@@ -20,20 +20,22 @@ const Navbar = ({ user, logoutUser, isAuthorized }) => {
           <h1 className="logo__text">FOOD</h1>
           <h3 className="logo__text-light">VILLE</h3>
         </Link>
-        <ul className="nav-options">
-          <li className="nav-item main">
-            <Link to="/orders">
-              orders
+        {isAuthorized &&
+          <ul className="nav-options">
+            <li className="nav-item main">
+              <Link to="/orders">
+                orders
           </Link>
-          </li>
-          <li className="nav-item main">
-            <Link to="/restaurants">
-              restaurants
+            </li>
+            <li className="nav-item main">
+              <Link to="/restaurants">
+                restaurants
           </Link>
-          </li>
-          <li className="nav-item name">{user.name}</li>
-          <li className="nav-item nav-login" onClick={logoutUser}>logout</li>
-        </ul>
+            </li>
+            <li className="nav-item name">{user.name}</li>
+            <li className="nav-item nav-login" onClick={logoutUser}>logout</li>
+          </ul>
+        }
       </div>
     </StyledNavbar>
   )

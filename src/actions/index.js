@@ -300,3 +300,35 @@ export const fetchDeleteMenuItem = mealId => {
       });
   };
 };
+
+export const placeOrder = reqPayload => {
+  return dispatch => {
+    dispatch(getActionObj(actionTypes.PLACE_ORDER_START));
+    return fetch(`${API_ENDPOINT}/api/order`, {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      body: JSON.stringify(reqPayload),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+      .then(res => {
+        if (res.status === 201) {
+          return res.json();
+        } else {
+          throw Error("Meal not deleted!");
+        }
+      })
+      .then(order => {
+        dispatch(getActionObj(actionTypes.PLACE_ORDER_SUCCESS, { order }));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+};
+
+export const setOrderPlacedToFalse = () => {
+  return getActionObj(actionTypes.SET_ORDER_PLACED_TO_FALSE);
+};

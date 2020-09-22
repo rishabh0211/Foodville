@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router";
 import StyledCart from "./styled/StyledCart";
 import CartItem from "./CartItem";
+import { placeOrder, setOrderPlacedToFalse } from "../actions";
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, orderPlaced, cartRestaurantId, placeOrder, setOrderPlacedToFalse }) => {
+  const history = useHistory();
+  useEffect(() => {
+    if (orderPlaced) {
+      setOrderPlacedToFalse(false);
+      history.push("/orders");
+    }
+  }, [orderPlaced]);
 
   const getTotalAmount = () => {
     return cart.reduce((acc, val) => acc + (val.quantity * val.price), 0);
+  };
+
+  const handlePlaceOrder = () => {
+    const cartObj = cart.map(({ _id, quantity }) => {
+      return { _id, quantity };
+    });
+    const reqObj = {
+      restaurantId: cartRestaurantId,
+      meals: cartObj
+    };
+    placeOrder(reqObj);
   };
 
   return (
@@ -17,14 +37,14 @@ const Cart = ({ cart }) => {
         <>
           <ul className="items-list">
             {cart.map(meal => (
-              <CartItem meal={meal} key={meal._id+meal.quantity} />
+              <CartItem meal={meal} key={meal._id + meal.quantity} />
             ))}
           </ul>
           <div className="subtotal-row">
             <p className="text">sub total</p>
             <p className="price">${getTotalAmount()}</p>
           </div>
-          <button className="btn submit-btn">
+          <button className="btn submit-btn" onClick={handlePlaceOrder}>
             place order
           </button>
         </>
@@ -37,13 +57,16 @@ const Cart = ({ cart }) => {
 
 const mapStateToProps = state => {
   return {
-    cart: state.cart
+    cart: state.cart,
+    cartRestaurantId: state.cartRestaurantId,
+    orderPlaced: state.orderPlaced
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    placeOrder: reqOdbj => dispatch(placeOrder(reqOdbj)),
+    setOrderPlacedToFalse: () => dispatch(setOrderPlacedToFalse())
   };
 };
 

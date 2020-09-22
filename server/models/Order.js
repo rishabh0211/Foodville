@@ -4,8 +4,10 @@ const { ObjectId } = mongoose.Schema;
 const OrderSchema = new mongoose.Schema(
   {
     meals: [{
-      quantity: Number,
-      meal: { type: ObjectId, ref: "Meal" }
+      _id: ObjectId,
+      name: String,
+      price: Number,
+      quantity: Number
     }],
     statuses: [{
       status: String,

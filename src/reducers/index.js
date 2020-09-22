@@ -10,7 +10,8 @@ const getInitalState = () => ({
   isAuthorized: false,
   userCreated: false,
   restaurantCreated: false,
-  restaurantUpdated: false
+  restaurantUpdated: false,
+  cartRestaurantId: ''
 });
 
 let selectedRestaurant, meals;
@@ -56,7 +57,7 @@ export default (state = getInitalState(), { type, payload }) => {
         isLoading: true
       };
     case actionTypes.FETCH_RESTAURANTS_SUCCESS:
-      const restaurants = payload.restaurants.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+      const restaurants = payload.restaurants.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
       return {
         ...state,
         restaurants,
@@ -68,13 +69,14 @@ export default (state = getInitalState(), { type, payload }) => {
         isLoading: true
       };
     case actionTypes.FETCH_RESTAURANT_SUCCESS:
-      payload.restaurant.meals = payload.restaurant.meals.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+      payload.restaurant.meals = payload.restaurant.meals.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
       return {
         ...state,
         isLoading: false,
         selectedRestaurant: payload.restaurant
       };
     case actionTypes.ADD_ITEM_TO_CART:
+      let cartRestaurantId = state.selectedRestaurant._id;
       meals = [...state.cart];
       let found = false;
       for (let i = 0; i < meals.length; i++) {
@@ -89,7 +91,8 @@ export default (state = getInitalState(), { type, payload }) => {
       }
       return {
         ...state,
-        cart: meals
+        cart: meals,
+        cartRestaurantId
       };
     case actionTypes.REMOVE_ITEM_FROM_CART:
       let cart = JSON.parse(JSON.stringify(state.cart));
@@ -156,7 +159,8 @@ export default (state = getInitalState(), { type, payload }) => {
       };
     case actionTypes.ADD_MENU_ITEM_SUCCESS:
       selectedRestaurant = JSON.parse(JSON.stringify(state.selectedRestaurant));
-      selectedRestaurant.meals = [payload.meal, ...selectedRestaurant.meals];
+      selectedRestaurant.meals.push(payload.meal);
+      selectedRestaurant.meals = selectedRestaurant.meals.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));      
       return {
         ...state,
         isLoading: false,
@@ -192,6 +196,25 @@ export default (state = getInitalState(), { type, payload }) => {
         ...state,
         isLoading: false,
         selectedRestaurant
+      };
+    case actionTypes.PLACE_ORDER_START:
+      return {
+        ...state,
+        isLoading: true,
+        orderPlaced: false
+      };
+    case actionTypes.PLACE_ORDER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        orderPlaced: true,
+        cart: [],
+        cartRestaurantId: ''
+      };
+    case actionTypes.SET_ORDER_PLACED_TO_FALSE:
+      return {
+        ...state,
+        orderPlaced: false
       };
     default:
       return state;

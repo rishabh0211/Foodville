@@ -72,7 +72,9 @@ const Restaurant = ({ user, selectedRestaurant, getRestaurant, addMenuItem, upda
           <div className="menu-container">
             <div className="menu-header">
               <h1 className="heading">Menu</h1>
-              <button className="btn" onClick={() => setShowAddItemModal(true)}>add item</button>
+              {user.type === userTypes.RESTAURANT &&
+                <button className="btn" onClick={() => setShowAddItemModal(true)}>add item</button>
+              }
             </div>
             <p className="item-count">{selectedRestaurant.meals.length} items</p>
             {selectedRestaurant.meals && !!selectedRestaurant.meals.length &&

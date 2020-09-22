@@ -50,7 +50,12 @@ const addMealsAndTotalAmount = (order, reqMeals, restaurantMeals) => {
       throw Error(`Invalid meal id ${meal._id}`);
     }
     totalAmount += dbMeal.price * meal.quantity;
-    return { _id: dbMeal._id, quantity: meal.quantity };
+    return {
+      _id: dbMeal._id,
+      name: dbMeal.name,
+      price: dbMeal.price,
+      quantity: meal.quantity
+    };
   });
   order.totalAmount = totalAmount;
   order.meals = resMeals;
