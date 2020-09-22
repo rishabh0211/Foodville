@@ -1,0 +1,16 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [{
+    "type": "node",
+    "request": "launch",
+    "name": "Launch Program",
+    "program": "${workspaceFolder}/server/app.js",
+    "env": {
+      "MONGO_URI": "mongodb://127.0.0.1:27017/foodville",
+      "SESSION_SECRET": "foodville_session_secret"
+    }
+  }]
+}

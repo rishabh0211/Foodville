@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Order = mongoose.model("Order");
 const Meal = mongoose.model("Meal");
+const Restaurant = mongoose.model("Restaurant");
 const { orderStatuses, userTypes } = require('../constants');
 
 exports.createOrder = async (req, res, next) => {
@@ -28,13 +29,22 @@ exports.updateStatus = async (req, res, next) => {
     { _id: orderId },
     { $push: { statuses: data } },
     { new: true }
-  );
+  ).populate('restaurant', ['_id', 'name', 'email'])
+    .populate('user', ['_id', 'name', 'email']);
   res.send(order);
 };
 
 exports.getAllOrders = async (req, res, next) => {
-  const idField = req.user.type === userTypes.CUSTOMER ? "user" : "restaurant";
-  const orders = await Order.find({ [idField]: req.user._id })
+  if (req.user.type === userTypes.CUSTOMER) {
+    const orders = await Order.find({ user: req.user._id })
+      .populate('restaurant', ['_id', 'name', 'email'])
+      .populate('user', ['_id', 'name', 'email']);
+    return res.send(orders);
+  }
+  const restaurants = await Restaurant.find({ owner: req.user._id, deletedAt: { $exists: false } })
+    .select('_id');
+  const restaurantIds = restaurants.map(restaurant => restaurant._id);
+  const orders = await Order.find({ restaurant: { $in: restaurantIds } })
     .populate('restaurant', ['_id', 'name', 'email'])
     .populate('user', ['_id', 'name', 'email']);
   res.send(orders);

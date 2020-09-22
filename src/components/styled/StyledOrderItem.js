@@ -64,8 +64,36 @@ export default styled.li`
       }
     }
 
+    .status-rest-container {
+      text-align: right;
+    }
+
+    .rest-name {
+      margin-top: 1rem;
+    }
+
     .status {
       text-transform: uppercase;
+      font-weight: 600;
+
+      &.placed {
+        color: ${(props) => props.theme.colors.green};
+      }
+      &.canceled {
+        color: ${(props) => props.theme.colors.red};
+      }
+      &.processing {
+        color: ${(props) => props.theme.colors.green};
+      }
+      &.in_route {
+        color: ${(props) => props.theme.colors.green};
+      }
+      &.delivered {
+        color: ${(props) => props.theme.colors.green};
+      }
+      &.received {
+        color: ${(props) => props.theme.colors.green};
+      }
     }
   }
 
@@ -93,11 +121,11 @@ export default styled.li`
     }
 
     .timeline {
-      border-left: solid 1px ${({theme: {colors}}) => colors.darkGray};
+      border-left: solid 1px ${({ theme: { colors } }) => colors.darkGray};
       position: absolute;
       top: 0.8rem;
       left: 9.8rem;
-      height: 78%;
+      height: calc(100% - 1.5rem);
     }
 
     .status-item {
@@ -122,10 +150,10 @@ export default styled.li`
           width: .9rem;
           border-radius: 50%;
           position: absolute;
-          border: solid 1px ${({theme: {colors}}) => colors.darkGray};
+          border: solid 1px ${({ theme: { colors } }) => colors.darkGray};
           left: -3.6rem;
           top: .6rem;
-          background: ${({theme: {colors}}) => colors.lightGray};
+          background: ${({ theme: { colors } }) => colors.lightGray};
         }
       }
     }

@@ -51,7 +51,7 @@ export const orderNextStatusCta = {
   customer: {
     [orderStatuses.PLACED]: "cancel order",
     [orderStatuses.CANCELED]: "",
-    [orderStatuses.RECEIVED]: "mark as received",
+    [orderStatuses.DELIVERED]: "mark as received",
   },
   restaurant: {
     [orderStatuses.PLACED]: "confirm order",

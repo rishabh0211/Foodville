@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import moment from "moment";
 import StyledOrderItem from "./styled/StyledOrderItem";
-import { orderNextStatusCta, orderNextStaus } from "../constants";
+import { orderNextStatusCta, orderNextStaus, userTypes } from "../constants";
 import { updateOrderStatus } from "../actions";
 
 const OrderItem = ({ user, order, index, activeIndex, setActiveIndex, updateOrderStatus }) => {
@@ -28,7 +28,9 @@ const OrderItem = ({ user, order, index, activeIndex, setActiveIndex, updateOrde
         <div className="left">
           <div className="restaurant">
             <img src="/Hotel.svg" alt="Restaurant" />
-            <h3 className="name">{order.restaurant.name}</h3>
+            <h3 className="name">
+              {user.type === userTypes.CUSTOMER ? order.restaurant.name : order.user.name}
+            </h3>
           </div>
           <ul className="details">
             <li className="detail-item">{moment(order.createdAt).format("DD/MM/yyyy")}</li>
@@ -37,7 +39,12 @@ const OrderItem = ({ user, order, index, activeIndex, setActiveIndex, updateOrde
           </ul>
         </div>
         <div className="right">
-          <p className="status">{orderStatus}</p>
+          <div className="status-rest-container">
+            <p className={`status ${orderStatus}`}>{orderStatus}</p>
+            {user.type === userTypes.RESTAURANT && 
+              <p className="rest-name">{order.restaurant.name}</p>
+            }
+          </div>
           <MdKeyboardArrowDown className="icon" size={30} />
         </div>
       </div>
