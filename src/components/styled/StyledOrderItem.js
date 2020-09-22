@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { media } from "../../styles";
 
 export default styled.li`
 
@@ -108,6 +109,9 @@ export default styled.li`
     border-top: none;
     display: flex;
     justify-content: space-between;
+    ${media.tablet`
+      flex-direction: column;
+    `}
 
     .detail-heading {
       text-transform: uppercase;
@@ -117,6 +121,9 @@ export default styled.li`
 
     .status-container {
       width: calc(50% - 1rem);
+      ${media.tablet`
+        width: 100%;
+      `}
     }
 
     .status-list {
@@ -169,7 +176,10 @@ export default styled.li`
     .bill-container {
       width: calc(50% - 1rem);
       position: relative;
-
+      ${media.tablet`
+        width: 100%;
+        margin-top: 4rem;
+      `}
       &::before {
         content: " ";
         border-left: dashed 1px #949CA3;
@@ -177,6 +187,13 @@ export default styled.li`
         left: -2rem;
         top: 0;
         bottom: 0;
+        ${media.tablet`
+          left: 0;
+          right: 0;
+          top: -2rem;
+          border-left: none;
+          border-top: dashed 1px #949CA3;
+        `}
       }
     }
 

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { hex2rgba } from "../../utils";
+import { media } from "../../styles";
 
 export default styled.div`
   position: fixed;
@@ -19,6 +20,9 @@ export default styled.div`
     transform: translate(-50%, -50%);
     max-width: 80rem;
     width: calc(100% - 4rem);
+    ${media.tablet`
+      padding: 2rem;
+    `}
   }
 
   .heading {

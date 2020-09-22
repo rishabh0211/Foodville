@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { hex2rgba } from "../utils";
 import { setShowClearCartModal, addItemToCart } from "../actions";
+import { media } from "../styles";
 
 const StyledClearCartModal = styled.div`
   position: fixed;
@@ -22,6 +23,9 @@ const StyledClearCartModal = styled.div`
     transform: translate(-50%, -50%);
     max-width: 80rem;
     width: calc(100% - 4rem);
+    ${media.tablet`
+      padding: 2rem;
+    `}
   }
 
   .heading {
