@@ -50,6 +50,8 @@ export const signup = payload => {
       })
       .then(() => {
         dispatch(getActionObj(actionTypes.SIGNUP_SUCCESS));
+      }).catch(err => {
+        console.log(err.message ? err.message : err);
       });
   };
 };
@@ -105,6 +107,8 @@ export const getRestaurants = () => {
       .then(res => res.json())
       .then(restaurants => {
         dispatch(getActionObj(actionTypes.FETCH_RESTAURANTS_SUCCESS, { restaurants }));
+      }).catch(err => {
+        console.log(err.message ? err.message : err);
       });
   };
 };
@@ -161,6 +165,8 @@ export const addRestaurant = restaurant => {
       })
       .then(restaurant => {
         dispatch(getActionObj(actionTypes.CREATE_RESTAURANT_SUCCESS, { restaurant }));
+      }).catch(err => {
+        console.log(err.message ? err.message : err);
       });
   };
 };

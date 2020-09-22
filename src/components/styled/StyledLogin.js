@@ -93,4 +93,9 @@ export default styled.section`
       width: 100%;
     }
   }
+
+  .err-msg {
+    margin: 1rem 0;
+    color: ${props => props.theme.colors.red};
+  }
 `;
