@@ -37,6 +37,12 @@ const OrderItem = ({ user, order, index, activeIndex, setActiveIndex, updateOrde
             <li className="detail-item">{order.meals.length} items</li>
             <li className="detail-item">Total $ {order.totalAmount}</li>
           </ul>
+          <div className="mob-status">
+            <p className={`status ${orderStatus}`}>{orderStatus}</p>
+            {user.type === userTypes.RESTAURANT && 
+              <p className="rest-name">{order.restaurant.name}</p>
+            }
+          </div>
         </div>
         <div className="right">
           <div className="status-rest-container">

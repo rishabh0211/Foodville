@@ -15,6 +15,10 @@ export default styled.li`
     padding: 2rem;
     transition: .3s border-color ease-in-out;
     cursor: pointer;
+
+    ${media.tablet`
+      padding: 2rem 1rem;
+    `}
     
     &:hover {
       border-color: ${({ theme: { colors } }) => colors.orange};
@@ -23,6 +27,14 @@ export default styled.li`
     .left {
       display: flex;
       flex-direction: column;
+    }
+
+    .mob-status {
+      display: none;
+      margin-top: .8rem;
+      ${media.tablet`
+        display: block;
+      `}
     }
 
     .restaurant {
@@ -66,11 +78,17 @@ export default styled.li`
         &.active {
           transform: rotate(-180deg);
         }
+        ${media.tablet`
+          margin-left: .4rem;
+        `}
       }
     }
 
     .status-rest-container {
       text-align: right;
+      ${media.tablet`
+        display: none;
+      `}
     }
 
     .rest-name {
@@ -111,6 +129,7 @@ export default styled.li`
     justify-content: space-between;
     ${media.tablet`
       flex-direction: column;
+      padding: 2rem 1rem 2.4rem;
     `}
 
     .detail-heading {
