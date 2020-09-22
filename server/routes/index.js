@@ -17,19 +17,19 @@ const catchErrors = fn => {
 };
 
 /**
- * AUTH ROUTES: /api/auth
+ * AUTH ROUTES: /auth
  */
 router.post(
-  "/api/auth/signup",
+  "/auth/signup",
   authController.validateSignupRules(),
   authController.validateSignup,
   catchErrors(authController.signup)
 );
 // signin
-router.post("/api/auth/signin", authController.signin);
-router.get("/api/auth/checkLogin", authController.checkLogin);
+router.post("/auth/signin", authController.signin);
+router.get("/auth/checkLogin", authController.checkLogin);
 // signout
-router.get("/api/auth/signout", authController.signOut);
+router.get("/auth/signout", authController.signOut);
 
 // Get All Restaurants (exclude blocked)
 // Place Order
@@ -37,18 +37,18 @@ router.get("/api/auth/signout", authController.signOut);
 // Update Order status
 
 /** 
- * RESTAURANT OWNER ROUTES: /api/restaurant
+ * RESTAURANT OWNER ROUTES: /restaurant
  */
 router.param("restaurantId", catchErrors(restaurantController.getRestaurantById));
 // create restaurant
 router.post(
-  "/api/restaurant",
+  "/restaurant",
   authController.checkIsRestaurant,
   catchErrors(restaurantController.createRestaurant)
 );
-router.post("/api/restaurant/:restaurantId/block/:userId", catchErrors(restaurantController.blockUser));
+router.post("/restaurant/:restaurantId/block/:userId", catchErrors(restaurantController.blockUser));
 router.
-  route("/api/restaurant/:restaurantId")
+  route("/restaurant/:restaurantId")
   // read restaurant
   .get(catchErrors(restaurantController.getRestaurant))
   // update restaurant
@@ -62,23 +62,23 @@ router.
     catchErrors(restaurantController.deleteRestaurant)
   );
 
-// router.get('/api/restaurants/all', catchErrors(restaurantController.getAllRestaurants));
+// router.get('/restaurants/all', catchErrors(restaurantController.getAllRestaurants));
 // get all owned restaurants
 // get all restaurants
-router.get('/api/restaurants', catchErrors(restaurantController.getAllRestaurants));
+router.get('/restaurants', catchErrors(restaurantController.getAllRestaurants));
 
 /**
- * RESTAURANT ROUTES: /api/meal/:mealId
+ * RESTAURANT ROUTES: /meal/:mealId
  */
 
 router.param("mealId", catchErrors(mealController.getMealById));
 // create meal in restaurant
 router.post(
-  "/api/meal",
+  "/meal",
   authController.checkIsRestaurant,
   catchErrors(mealController.createMeal)
 );
-router.route("/api/meal/:mealId")
+router.route("/meal/:mealId")
   // read meals in restaurant
   .get(catchErrors(mealController.getMeal))
   // update meal in restaurant
@@ -93,10 +93,10 @@ router.route("/api/meal/:mealId")
 /** ORDER ROUTES */
 
 // place/create order
-router.post("/api/order", catchErrors(orderController.createOrder));
+router.post("/order", catchErrors(orderController.createOrder));
 
-router.get("/api/orders", catchErrors(orderController.getAllOrders));
-router.post("/api/order/:orderId/update", catchErrors(orderController.updateStatus));
+router.get("/orders", catchErrors(orderController.getAllOrders));
+router.post("/order/:orderId/update", catchErrors(orderController.updateStatus));
 
 
 module.exports = router;

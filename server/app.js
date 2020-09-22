@@ -19,17 +19,19 @@ require('./passport');
 
 const dev = process.env.NODE_ENV !== "production";
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT;
 
 if (!dev) {
   app.use(helmet());
   app.use(compression());
 }
 app.use(logger("combined"));
-app.use(cors({
-  credentials: true,
-  origin: ['http://localhost:3000']
-}));
+if (dev) {
+  app.use(cors({
+    credentials: true,
+    origin: ['http://localhost:3000']
+  }));
+}
 
 app.use(express.json());
 
@@ -68,8 +70,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/", routes);
+app.use("/api", routes);
+
+const staticPath = path.join(__dirname, 'build');
+app.use("/", express.static(staticPath));
 
 app.listen(port, () => {
-  console.log(`server is up and running on port 4000`);
+  console.log(`server is up and running on port ${port}`);
 });
