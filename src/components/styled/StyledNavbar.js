@@ -74,7 +74,7 @@ export default styled.nav`
     }
   }
   .mobile-links-container {
-    display: none;
+    visibility: hidden;
   }
   ${media.tablet`
     .mobile-links-container {
