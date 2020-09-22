@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import StyledOrders from "./styled/StyledOrders";
 import OrderItem from "./OrderItem";
+import { fetchOrders } from "../actions";
 
-const Orders = () => {
+const Orders = ({ orders, fetchOrders }) => {
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const [activeIndex, setActiveIndex] = useState(-1);
+
   return (
     <StyledOrders>
       <header className="header">
@@ -18,19 +27,37 @@ const Orders = () => {
       </header>
       <section className="middle-section">
         <h1 className="heading">Orders</h1>
-        <p className="order-count">5 orders</p>
-        <ul className="order-list">
-          <OrderItem />
-          <OrderItem />
-          <OrderItem />
-          <OrderItem />
-          <OrderItem />
-          <OrderItem />
-          <OrderItem />
-        </ul>
+        {orders && !!orders.length &&
+          <>
+            <p className="order-count">{orders.length} orders</p>
+            <ul className="order-list">
+              {orders.map((order, index) => (
+                <OrderItem
+                  order={order}
+                  key={order._id + order.statuses.length}
+                  index={index}
+                  activeIndex={activeIndex}
+                  setActiveIndex={setActiveIndex}
+                />
+              ))}
+            </ul>
+          </>
+        }
       </section>
     </StyledOrders>
   )
 }
 
-export default Orders;
+const mapStateToProps = state => {
+  return {
+    orders: state.orders
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchOrders: () => dispatch(fetchOrders())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Orders);

@@ -18,7 +18,7 @@ const OrderSchema = new mongoose.Schema(
       required: true
     },
     user: { type: ObjectId, ref: "User" },
-    restaurant: { type: ObjectId, ref: "User" },
+    restaurant: { type: ObjectId, ref: "Restaurant" },
   },
   { timestamps: true }
 );

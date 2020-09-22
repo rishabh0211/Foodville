@@ -96,12 +96,17 @@ export default styled.li`
       border-left: solid 1px ${({theme: {colors}}) => colors.darkGray};
       position: absolute;
       top: 0.8rem;
-      left: 9.3rem;
+      left: 9.8rem;
       height: 85%;
     }
 
     .status-item {
       display: flex;
+      width: 30rem;
+
+      .time {
+        width: 7rem;
+      }
 
       &:not(:first-child) {
         margin-top: 1.6rem;
@@ -110,7 +115,7 @@ export default styled.li`
       .status {
         margin-left: 6rem;
         position: relative;
-
+        text-transform: capitalize;
         &::before {
           content: "";
           height: .9rem;

@@ -34,7 +34,9 @@ exports.updateStatus = async (req, res, next) => {
 
 exports.getAllOrders = async (req, res, next) => {
   const idField = req.user.type === userTypes.CUSTOMER ? "user" : "restaurant";
-  const orders = await Order.find({ [idField]: req.user._id });
+  const orders = await Order.find({ [idField]: req.user._id })
+    .populate('restaurant', ['_id', 'name', 'email'])
+    .populate('user', ['_id', 'name', 'email']);
   res.send(orders);
 };
 

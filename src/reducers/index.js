@@ -57,7 +57,7 @@ export default (state = getInitalState(), { type, payload }) => {
         isLoading: true
       };
     case actionTypes.FETCH_RESTAURANTS_SUCCESS:
-      const restaurants = payload.restaurants.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+      const restaurants = payload.restaurants.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0));
       return {
         ...state,
         restaurants,
@@ -69,7 +69,7 @@ export default (state = getInitalState(), { type, payload }) => {
         isLoading: true
       };
     case actionTypes.FETCH_RESTAURANT_SUCCESS:
-      payload.restaurant.meals = payload.restaurant.meals.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+      payload.restaurant.meals = payload.restaurant.meals.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0));
       return {
         ...state,
         isLoading: false,
@@ -160,7 +160,7 @@ export default (state = getInitalState(), { type, payload }) => {
     case actionTypes.ADD_MENU_ITEM_SUCCESS:
       selectedRestaurant = JSON.parse(JSON.stringify(state.selectedRestaurant));
       selectedRestaurant.meals.push(payload.meal);
-      selectedRestaurant.meals = selectedRestaurant.meals.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));      
+      selectedRestaurant.meals = selectedRestaurant.meals.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0));
       return {
         ...state,
         isLoading: false,
@@ -209,12 +209,25 @@ export default (state = getInitalState(), { type, payload }) => {
         isLoading: false,
         orderPlaced: true,
         cart: [],
-        cartRestaurantId: ''
+        cartRestaurantId: '',
+        orders: [payload.order, ...state.orders]
       };
     case actionTypes.SET_ORDER_PLACED_TO_FALSE:
       return {
         ...state,
         orderPlaced: false
+      };
+    case actionTypes.FETCH_ORDER_START:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case actionTypes.FETCH_ORDER_SUCCESS:
+      payload.orders = payload.orders.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+      return {
+        ...state,
+        isLoading: false,
+        orders: payload.orders
       };
     default:
       return state;

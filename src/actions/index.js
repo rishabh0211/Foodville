@@ -332,3 +332,26 @@ export const placeOrder = reqPayload => {
 export const setOrderPlacedToFalse = () => {
   return getActionObj(actionTypes.SET_ORDER_PLACED_TO_FALSE);
 };
+
+export const fetchOrders = () => {
+  return dispatch => {
+    dispatch(getActionObj(actionTypes.FETCH_ORDER_START));
+    return fetch(`${API_ENDPOINT}/api/orders`, {
+      mode: "cors",
+      credentials: "include",
+    })
+      .then(res => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          throw Error("Cannot get order!");
+        }
+      })
+      .then(orders => {
+        dispatch(getActionObj(actionTypes.FETCH_ORDER_SUCCESS, { orders }));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+};
