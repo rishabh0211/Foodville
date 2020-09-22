@@ -173,7 +173,7 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
           </div>
           {error && <p className="err-msg">{error}</p>}
           <button className="btn login-btn" type="submit">login</button>
-          <div className="signup-text">New to Foodville? <p tabIndex="1" className="signup-link" onClick={toggleSection}>Signup</p></div>
+          <div className="signup-text">New to Foodville? <p tabIndex="0" className="signup-link" onClick={toggleSection}>Signup</p></div>
         </form>
       </div>
       {/* SIGNUP SECTION */}
@@ -237,11 +237,11 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
               checked={inputState.isRestaurant}
               onChange={handleInputChange}
             />
-            <label className="checkbox-label" htmlFor="isRestaurant">Register as Restaurnt Owner?</label>
+            <label className="checkbox-label" htmlFor="isRestaurant">Register as Restaurant Owner?</label>
           </div>
           {error && <p className="err-msg">{error}</p>}
           <button className="btn login-btn" type="submit">submit</button>
-          <div className="signup-text">Already a member? <p tabIndex="1" className="signup-link" onClick={toggleSection}>Login</p></div>
+          <div className="signup-text">Already a member? <p tabIndex="0" className="signup-link" onClick={toggleSection}>Login</p></div>
         </form>
       </div>
     </StyledLogin>
