@@ -45,7 +45,7 @@ const OrderItem = ({ user, order, index, activeIndex, setActiveIndex, updateOrde
               <p className="rest-name">{order.restaurant.name}</p>
             }
           </div>
-          <MdKeyboardArrowDown className="icon" size={30} />
+          <MdKeyboardArrowDown className={`icon ${activeIndex === index ? "active" : ""}`} size={30} />
         </div>
       </div>
       {index === activeIndex &&

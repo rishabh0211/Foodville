@@ -61,6 +61,10 @@ export default styled.li`
 
       .icon {
         margin-left: 4rem;
+        transition: transform .2s ease-in-out;
+        &.active {
+          transform: rotate(-180deg);
+        }
       }
     }
 
