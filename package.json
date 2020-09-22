@@ -37,7 +37,7 @@
     "styled-components": "^5.2.0"
   },
   "scripts": {
-    "build": "node ./buildScript",
+    "build": "INLINE_RUNTIME_CHUNK=false node ./buildScript",
     "start-server": "env-cmd -f ./config/dev.env cross-env NODE_ENV=development nodemon server/app.js --watch server --watch server/controllers --watch server/db --watch server/models --watch server/routes",
     "start-front": "react-scripts start",
     "build-front": "react-scripts build",
