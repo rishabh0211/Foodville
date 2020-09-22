@@ -40,6 +40,7 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
       confirmPassword: "",
       isRestaurant: ""
     });
+    setError("");    
   };
 
   const toggleSection = () => {
