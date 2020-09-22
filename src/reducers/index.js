@@ -46,12 +46,13 @@ export default (state = getInitalState(), { type, payload }) => {
     case actionTypes.SIGNUP_START:
       return {
         ...state,
-        isLoading: false
+        isLoading: true
       };
     case actionTypes.SIGNUP_SUCCESS:
       return {
         ...state,
-        userCreated: true
+        userCreated: true,
+        isLoading: false
       };
     case actionTypes.FETCH_RESTAURANTS_START:
       return {
