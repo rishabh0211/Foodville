@@ -54,6 +54,27 @@ export const signup = payload => {
   };
 };
 
+export const logoutUser = () => {
+  return dispatch => {
+    dispatch(getActionObj(actionTypes.LOGOUT_START));
+    return fetch(`${API_ENDPOINT}/api/auth/signout`, {
+      mode: "cors",
+      credentials: "include",
+    }).then(res => {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        throw Error("Not logged in ");
+      }
+    })
+      .then(() => {
+        dispatch(getActionObj(actionTypes.LOGOUT_SUCCESS));
+      }).catch(err => {
+        console.log(err.message ? err.message : err);
+      });
+  };
+};
+
 export const checkLogin = () => {
   return dispatch => {
     return fetch(`${API_ENDPOINT}/api/auth/checkLogin`, {

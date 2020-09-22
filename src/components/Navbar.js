@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import StyledNavbar from "./styled/StyledNavbar";
+import { logoutUser } from "../actions";
 
-const Navbar = ({ user }) => {
+const Navbar = ({ user, logoutUser, isAuthorized }) => {
+  const history = useHistory();
+  useEffect(() => {
+    if (!isAuthorized) {
+      history.push("/");
+    }
+  }, [isAuthorized]);
+
   return (
     <StyledNavbar>
       <div className="nav-container">
@@ -23,7 +32,7 @@ const Navbar = ({ user }) => {
           </Link>
           </li>
           <li className="nav-item name">{user.name}</li>
-          <li className="nav-item nav-login">logout</li>
+          <li className="nav-item nav-login" onClick={logoutUser}>logout</li>
         </ul>
       </div>
     </StyledNavbar>
@@ -32,13 +41,14 @@ const Navbar = ({ user }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    logoutUser: () => dispatch(logoutUser())
   };
 };
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    isAuthorized: state.isAuthorized,
   };
 };
 

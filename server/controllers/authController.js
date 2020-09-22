@@ -61,9 +61,9 @@ exports.checkLogin = async (req, res) => {
 
 // signout hanlder
 exports.signOut = async (req, res, next) => {
-  res.clearCookie("employee-feedback.sid");
+  res.clearCookie("foodville-session.sid");
   req.logout();
-  res.json({ message: "You are now signed out" });
+  res.send({ message: "You are now signed out" });
 };
 
 // checks if it the user is of type restaurant

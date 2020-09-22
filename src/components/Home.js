@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ThemeProvider } from "styled-components";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 import StyledHome from "./styled/StyledHome";
 import theme from '../styles/theme';
@@ -11,14 +10,7 @@ import Footer from "./Footer";
 import { getRestaurants, checkLogin } from "../actions";
 import Loader from "./Loader";
 
-const Home = ({ user, getRestaurants, checkLogin, isLoading }) => {
-  const history = useHistory();
-  useEffect(() => {
-    // if (!user || !!Object.keys(user).length) {
-    //   history.push("/");
-    // }
-  }, []);
-
+const Home = ({ isLoading }) => {
   return (
     <ThemeProvider theme={theme}>
       <StyledHome>
@@ -33,12 +25,12 @@ const Home = ({ user, getRestaurants, checkLogin, isLoading }) => {
   )
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getRestaurants: () => dispatch(getRestaurants()),
-    checkLogin: () => dispatch(checkLogin())
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     getRestaurants: () => dispatch(getRestaurants()),
+//     checkLogin: () => dispatch(checkLogin())
+//   };
+// };
 
 const mapStateToProps = state => {
   return {
@@ -47,4 +39,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);

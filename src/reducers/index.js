@@ -29,6 +29,17 @@ export default (state = getInitalState(), { type, payload }) => {
         user: payload.user,
         isAuthorized: true
       };
+    case actionTypes.LOGOUT_START:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case actionTypes.LOGOUT_SUCCESS:
+      let initState = getInitalState();
+      return {
+        ...state,
+        ...initState
+      };
     case actionTypes.SIGNUP_START:
       return {
         ...state,
