@@ -22,6 +22,7 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
   });
   const [showLogin, setShowLogin] = useState(true);
   const [showNotification, setShowNotification] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (userCreated) {
@@ -47,6 +48,7 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
   };
 
   const handleInputChange = e => {
+    setError('');
     let { name, value, type, checked } = e.target;
     if (type === 'checkbox') {
       value = checked;
@@ -67,15 +69,47 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
     });
   };
 
+  const checkNameError = () => {
+    if (!inputState.username || inputState.username.length < 2) {
+      setError('Name should be atleat 2 characters long');
+      return false;
+    }
+    return true;
+  };
+
+  const checkEmailError = () => {
+    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const valid = regex.test(inputState.email);
+    if (!valid) {
+      setError('Provide a valid mail id');
+    }
+    return valid;
+  };
+
+  const checkPasswordError = () => {
+    if (inputState.password.length < 7) {
+      setError("Password should be greater than 6 characters");
+      return false;
+    }
+    if (inputState.password !== inputState.confirmPassword) {
+      setError("Password and confirm password do not match");
+      return false;
+    }
+    return true;
+  };
+
   const handleSignup = e => {
     e.preventDefault();
-    const { username, email, password, isRestaurant } = inputState;
-    signup({
-      name: username,
-      email,
-      password,
-      type: isRestaurant ? userTypes.RESTAURANT : userTypes.CUSTOMER
-    });
+    const isValid = checkNameError() && checkEmailError() && checkPasswordError();
+    if (isValid) {
+      const { username, email, password, isRestaurant } = inputState;
+      signup({
+        name: username,
+        email,
+        password,
+        type: isRestaurant ? userTypes.RESTAURANT : userTypes.CUSTOMER
+      });
+    }
   };
 
   return (
@@ -108,6 +142,7 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
             />
             <label className="form-label" htmlFor="password">Password</label>
           </div>
+          {error && <p className="err-msg">{error}</p>}
           <button className="btn login-btn" type="submit">login</button>
           <div className="signup-text">New to Foodville? <p tabIndex="1" className="signup-link" onClick={toggleSection}>Signup</p></div>
         </form>
@@ -122,7 +157,7 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
               name="username"
               id="username"
               placeholder="Name"
-              value={inputState.name}
+              value={inputState.username}
               onChange={handleInputChange}
             />
             <label className="form-label" htmlFor="username">Name</label>
@@ -174,6 +209,7 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
             />
             <label className="checkbox-label" htmlFor="isRestaurant">Register as Restaurnt Owner?</label>
           </div>
+          {error && <p className="err-msg">{error}</p>}
           <button className="btn login-btn" type="submit">submit</button>
           <div className="signup-text">Already a member? <p tabIndex="1" className="signup-link" onClick={toggleSection}>Login</p></div>
         </form>
