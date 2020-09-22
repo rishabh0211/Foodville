@@ -387,3 +387,25 @@ export const updateOrderStatus = (orderId, reqPayload) => {
 export const setShowClearCartModal = (showModal, meal) => {
   return getActionObj(actionTypes.SHOW_CLEAR_CART_MODAL, { showModal, meal });
 };
+
+export const blockUser = (userId, restaurantId) => {
+  return dispatch => {
+    dispatch(getActionObj(actionTypes.BLOCK_USER_START));
+    return fetch(`${API_ENDPOINT}/api/restaurant/${restaurantId}/block/${userId}`, {
+      mode: "cors",
+      credentials: "include"
+    })
+      .then(res => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          throw Error("Cannot get order!");
+        }
+      }).then(restaurant => {
+        dispatch(getActionObj(actionTypes.BLOCK_USER_SUCCESS, { restaurant }));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+};

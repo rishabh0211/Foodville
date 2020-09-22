@@ -73,7 +73,9 @@ export default styled.nav`
       cursor: auto;
     }
   }
-
+  .mobile-links-container {
+    display: none;
+  }
   ${media.tablet`
     .mobile-links-container {
       position: fixed;

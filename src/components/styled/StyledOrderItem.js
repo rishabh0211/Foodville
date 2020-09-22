@@ -192,6 +192,19 @@ export default styled.li`
       margin-top: 2.4rem;
     }
 
+    .block-container {
+      margin-top: 1rem;
+      .block-link {
+        background: inherit;
+        color: ${props => props.theme.colors.orange};
+        font-weight: 500;
+        transition: all .3s ease-in-out;
+        &:hover {
+          font-weight: 600;
+        }
+      }
+    }
+
     .bill-container {
       width: calc(50% - 1rem);
       position: relative;

@@ -4,9 +4,9 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import moment from "moment";
 import StyledOrderItem from "./styled/StyledOrderItem";
 import { orderNextStatusCta, orderNextStaus, userTypes } from "../constants";
-import { updateOrderStatus } from "../actions";
+import { updateOrderStatus, blockUser } from "../actions";
 
-const OrderItem = ({ user, order, index, activeIndex, setActiveIndex, updateOrderStatus }) => {
+const OrderItem = ({ user, order, index, activeIndex, setActiveIndex, updateOrderStatus, blockUser }) => {
 
   const handleTopContainerClick = () => {
     if (activeIndex === index) {
@@ -20,6 +20,10 @@ const OrderItem = ({ user, order, index, activeIndex, setActiveIndex, updateOrde
 
   const handleUpdateStatus = () => {
     updateOrderStatus(order._id, { status: orderNextStaus[user.type][orderStatus] });
+  };
+
+  const handleBlockUser = () => {
+    blockUser(order.user._id, order.restaurant._id);
   };
 
   return (
@@ -39,7 +43,7 @@ const OrderItem = ({ user, order, index, activeIndex, setActiveIndex, updateOrde
           </ul>
           <div className="mob-status">
             <p className={`status ${orderStatus}`}>{orderStatus}</p>
-            {user.type === userTypes.RESTAURANT && 
+            {user.type === userTypes.RESTAURANT &&
               <p className="rest-name">{order.restaurant.name}</p>
             }
           </div>
@@ -47,7 +51,7 @@ const OrderItem = ({ user, order, index, activeIndex, setActiveIndex, updateOrde
         <div className="right">
           <div className="status-rest-container">
             <p className={`status ${orderStatus}`}>{orderStatus}</p>
-            {user.type === userTypes.RESTAURANT && 
+            {user.type === userTypes.RESTAURANT &&
               <p className="rest-name">{order.restaurant.name}</p>
             }
           </div>
@@ -71,6 +75,11 @@ const OrderItem = ({ user, order, index, activeIndex, setActiveIndex, updateOrde
               <button className="btn-secondary status-btn" onClick={handleUpdateStatus}>
                 {orderNextStatusCta[user.type][orderStatus]}
               </button>
+            }
+            {user.type === userTypes.RESTAURANT && !order.restaurant.blockedUsers?.includes(order.user._id) &&
+              <div className="block-container">
+                <button className="block-link" onClick={handleBlockUser}>Block {order.user.name}</button>
+              </div>
             }
           </div>
           <div className="bill-container">
@@ -102,7 +111,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateOrderStatus: (orderId, reqObj) => dispatch(updateOrderStatus(orderId, reqObj))
+    updateOrderStatus: (orderId, reqObj) => dispatch(updateOrderStatus(orderId, reqObj)),
+    blockUser: (userId, restaurantId) => dispatch(blockUser(userId, restaurantId))
   }
 }
 

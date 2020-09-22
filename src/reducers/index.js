@@ -258,6 +258,16 @@ export default (state = getInitalState(), { type, payload }) => {
         showClearCartModal: payload.showModal,
         mealToAddAfterClearCart
       };
+    case actionTypes.BLOCK_USER_START: 
+      return {
+        ...state,
+        isLoading: true
+      };
+    case actionTypes.BLOCK_USER_SUCCESS: 
+      return {
+        ...state,
+        isLoading: false
+      };
     default:
       return state;
   }

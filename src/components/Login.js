@@ -15,7 +15,7 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
 
   const [inputState, setInputState] = useState({
     username: "",
-    email: "c1@gmail.com",
+    email: "ro1@gmail.com",
     password: "pass1234",
     confirmPassword: "",
     isRestaurant: ""

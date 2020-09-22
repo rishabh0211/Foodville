@@ -37,7 +37,7 @@ exports.updateStatus = async (req, res, next) => {
 exports.getAllOrders = async (req, res, next) => {
   if (req.user.type === userTypes.CUSTOMER) {
     const orders = await Order.find({ user: req.user._id })
-      .populate('restaurant', ['_id', 'name', 'email'])
+      .populate('restaurant', ['_id', 'name', 'email', 'blockedUsers'])
       .populate('user', ['_id', 'name', 'email']);
     return res.send(orders);
   }
@@ -45,7 +45,7 @@ exports.getAllOrders = async (req, res, next) => {
     .select('_id');
   const restaurantIds = restaurants.map(restaurant => restaurant._id);
   const orders = await Order.find({ restaurant: { $in: restaurantIds } })
-    .populate('restaurant', ['_id', 'name', 'email'])
+    .populate('restaurant', ['_id', 'name', 'email', 'blockedUsers'])
     .populate('user', ['_id', 'name', 'email']);
   res.send(orders);
 };
