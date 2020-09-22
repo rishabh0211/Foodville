@@ -229,6 +229,24 @@ export default (state = getInitalState(), { type, payload }) => {
         isLoading: false,
         orders: payload.orders
       };
+    case actionTypes.UPDATE_ORDER_STATUS_START:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case actionTypes.UPDATE_ORDER_STATUS_SUCCESS:
+      let orders = [...state.orders];
+      orders = orders.map(order => {
+        if (order._id === payload.order._id) {
+          return payload.order;
+        }
+        return order;
+      });
+      return {
+        ...state,
+        isLoading: false,
+        orders
+      };
     default:
       return state;
   }

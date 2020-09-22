@@ -1,9 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import moment from "moment";
 import StyledOrderItem from "./styled/StyledOrderItem";
+import { orderNextStatusCta, orderNextStaus } from "../constants";
+import { updateOrderStatus } from "../actions";
 
-const OrderItem = ({ order, index, activeIndex, setActiveIndex }) => {
+const OrderItem = ({ user, order, index, activeIndex, setActiveIndex, updateOrderStatus }) => {
 
   const handleTopContainerClick = () => {
     if (activeIndex === index) {
@@ -11,6 +14,12 @@ const OrderItem = ({ order, index, activeIndex, setActiveIndex }) => {
     } else {
       setActiveIndex(index);
     }
+  };
+
+  const orderStatus = order.statuses[order.statuses.length - 1].status;
+
+  const handleUpdateStatus = () => {
+    updateOrderStatus(order._id, { status: orderNextStaus[user.type][orderStatus] });
   };
 
   return (
@@ -28,11 +37,11 @@ const OrderItem = ({ order, index, activeIndex, setActiveIndex }) => {
           </ul>
         </div>
         <div className="right">
-          <p className="status">{order.statuses[order.statuses.length - 1].status}</p>
+          <p className="status">{orderStatus}</p>
           <MdKeyboardArrowDown className="icon" size={30} />
         </div>
       </div>
-      {index === activeIndex && 
+      {index === activeIndex &&
         <div className="bottom-container">
           <div className="status-container">
             <h3 className="detail-heading">status</h3>
@@ -45,7 +54,11 @@ const OrderItem = ({ order, index, activeIndex, setActiveIndex }) => {
                 </li>
               ))}
             </ul>
-            <button className="btn-secondary status-btn">cancel order</button>
+            {orderNextStatusCta[user.type][orderStatus] &&
+              <button className="btn-secondary status-btn" onClick={handleUpdateStatus}>
+                {orderNextStatusCta[user.type][orderStatus]}
+              </button>
+            }
           </div>
           <div className="bill-container">
             <h3 className="detail-heading">bill</h3>
@@ -68,4 +81,16 @@ const OrderItem = ({ order, index, activeIndex, setActiveIndex }) => {
   )
 }
 
-export default OrderItem;
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateOrderStatus: (orderId, reqObj) => dispatch(updateOrderStatus(orderId, reqObj))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderItem);

@@ -97,7 +97,7 @@ export default styled.li`
       position: absolute;
       top: 0.8rem;
       left: 9.8rem;
-      height: 85%;
+      height: 78%;
     }
 
     .status-item {

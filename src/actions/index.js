@@ -355,3 +355,32 @@ export const fetchOrders = () => {
       });
   }
 };
+
+export const updateOrderStatus = (orderId, reqPayload) => {
+  return dispatch => {
+    dispatch(getActionObj(actionTypes.UPDATE_ORDER_STATUS_START));
+    return fetch(`${API_ENDPOINT}/api/order/${orderId}/update`, {
+      method: "POST",
+      mode: "cors",
+      credentials: "include",
+      body: JSON.stringify(reqPayload),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+      .then(res => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          throw Error("Cannot get order!");
+        }
+      })
+      .then(order => {
+        dispatch(getActionObj(actionTypes.UPDATE_ORDER_STATUS_SUCCESS, { order }));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+};
+

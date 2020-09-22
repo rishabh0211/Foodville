@@ -29,11 +29,47 @@ export const actionTypes = {
   SET_ORDER_PLACED_TO_FALSE: "FV_SET_ORDER_PLACED_TO_FALSE",
   FETCH_ORDER_START: "FV_FETCH_ORDER_START",
   FETCH_ORDER_SUCCESS: "FV_FETCH_ORDER_SUCCESS",
+  UPDATE_ORDER_STATUS_START: "FV_UPDATE_ORDER_STATUS_START",
+  UPDATE_ORDER_STATUS_SUCCESS: "FV_UPDATE_ORDER_STATUS_SUCCESS",
 };
 
 export const userTypes = {
   CUSTOMER: "customer",
   RESTAURANT: "restaurant"
+};
+
+export const orderStatuses = {
+  PLACED: "placed",
+  CANCELED: "canceled",
+  PROCESSING: "processing",
+  IN_ROUTE: "in_route",
+  DELIVERED: "delivered",
+  RECEIVED: "received"
+};
+
+export const orderNextStatusCta = {
+  customer: {
+    [orderStatuses.PLACED]: "cancel order",
+    [orderStatuses.CANCELED]: "",
+    [orderStatuses.RECEIVED]: "mark as received",
+  },
+  restaurant: {
+    [orderStatuses.PLACED]: "confirm order",
+    [orderStatuses.PROCESSING]: "move to in route",
+    [orderStatuses.IN_ROUTE]: "mark as delivered",
+  }
+};
+
+export const orderNextStaus = {
+  customer: {
+    [orderStatuses.PLACED]: orderStatuses.CANCELED,
+    [orderStatuses.DELIVERED]: orderStatuses.RECEIVED
+  },
+  restaurant: {
+    [orderStatuses.PLACED]: orderStatuses.PROCESSING,
+    [orderStatuses.PROCESSING]: orderStatuses.IN_ROUTE,
+    [orderStatuses.IN_ROUTE]: orderStatuses.DELIVERED
+  }
 };
 
 // to be removed
