@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import StyledRestaurantsList from "./styled/StyledRestaurantsList";
 import ListItem from "./ListItem";
-import { getRestaurants, addRestaurant, updateRestaurant, setRestaurantCreatedToFalse } from "../actions";
+import { getRestaurants, addRestaurant, updateRestaurant, setRestaurantCreatedToFalse, fetchDeleteRestaurant } from "../actions";
 import { userTypes } from "../constants";
 import AddRestaurant from "./AddRestaurant";
 
-const RestaurantsList = ({ user, getRestaurants, restaurants, addRestaurant, restaurantCreated, updateRestaurant, restaurantUpdated, setRestaurantCreatedToFalse }) => {
+const RestaurantsList = ({ user, getRestaurants, restaurants, addRestaurant, restaurantCreated, updateRestaurant, restaurantUpdated, setRestaurantCreatedToFalse, fetchDeleteRestaurant }) => {
   const history = useHistory();
   const [showAddRestaurant, setShowAddRestaurant] = useState(false);
   const [showEditRestaurant, setShowEditRestaurant] = useState(false);
@@ -57,8 +57,8 @@ const RestaurantsList = ({ user, getRestaurants, restaurants, addRestaurant, res
     setRestaurantToEdit(restaurant);
   };
 
-  const deleteRestaurant = () => {
-
+  const deleteRestaurant = (restaurant) => {
+    fetchDeleteRestaurant(restaurant);
   };
 
   return (
@@ -113,7 +113,8 @@ const mapDispatchToProps = dispatch => {
     getRestaurants: () => dispatch(getRestaurants()),
     addRestaurant: restaurant => dispatch(addRestaurant(restaurant)),
     updateRestaurant: (id, restaurant) => dispatch(updateRestaurant(id, restaurant)),
-    setRestaurantCreatedToFalse: () => dispatch(setRestaurantCreatedToFalse())
+    setRestaurantCreatedToFalse: () => dispatch(setRestaurantCreatedToFalse()),
+    fetchDeleteRestaurant: restaurant => dispatch(fetchDeleteRestaurant(restaurant))
   }
 };
 

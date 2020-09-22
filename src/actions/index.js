@@ -160,7 +160,7 @@ export const updateRestaurant = (restaurantId, reqObj) => {
         if (res.status === 200) {
           return res.json();
         } else {
-          throw Error("User not created!");
+          throw Error("Restaurant not updated!");
         }
       })
       .then(restaurant => {
@@ -174,4 +174,28 @@ export const updateRestaurant = (restaurantId, reqObj) => {
 
 export const setRestaurantCreatedToFalse = () => {
   return getActionObj(actionTypes.SET_RESTAURANT_CREATED_TO_FALSE);
+};
+
+export const fetchDeleteRestaurant = restaurant => {
+  return dispatch => {
+    dispatch(getActionObj(actionTypes.DELETE_RESTAURANT_START));
+    return fetch(`${API_ENDPOINT}/api/restaurant/${restaurant._id}`, {
+      method: "DELETE",
+      mode: "cors",
+      credentials: "include",
+    })
+      .then(res => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          throw Error("Restaurant not deleted!");
+        }
+      })
+      .then(restaurant => {
+        dispatch(getActionObj(actionTypes.DELETE_RESTAURANT_SUCCESS, { restaurant }));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 };

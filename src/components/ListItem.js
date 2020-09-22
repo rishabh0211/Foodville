@@ -6,7 +6,7 @@ import StyledListItem from "./styled/StyledListItem";
 import { userTypes } from "../constants";
 import theme from "../styles/theme";
 
-const ListItem = ({ user, restaurant, editRestaurant }) => {
+const ListItem = ({ user, restaurant, editRestaurant, deleteRestaurant }) => {
 
   const handleEditClick = e => {
     e.preventDefault();
@@ -14,7 +14,8 @@ const ListItem = ({ user, restaurant, editRestaurant }) => {
   };
 
   const handleDeleteClick = e => {
-    e.stopPropagation();
+    e.preventDefault();
+    deleteRestaurant(restaurant);
   };
 
   return (

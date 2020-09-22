@@ -109,7 +109,7 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
             <label className="form-label" htmlFor="password">Password</label>
           </div>
           <button className="btn login-btn" type="submit">login</button>
-          <div className="signup-text">New to Foodville? <a className="signup-link" onClick={toggleSection}>Signup</a></div>
+          <div className="signup-text">New to Foodville? <p tabIndex="1" className="signup-link" onClick={toggleSection}>Signup</p></div>
         </form>
       </div>
       <div className="signup-section" hidden={showLogin}>
@@ -175,7 +175,7 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
             <label className="checkbox-label" htmlFor="isRestaurant">Register as Restaurnt Owner?</label>
           </div>
           <button className="btn login-btn" type="submit">submit</button>
-          <div className="signup-text">Already a member? <a className="signup-link" onClick={toggleSection}>Login</a></div>
+          <div className="signup-text">Already a member? <p tabIndex="1" className="signup-link" onClick={toggleSection}>Login</p></div>
         </form>
       </div>
     </StyledLogin>

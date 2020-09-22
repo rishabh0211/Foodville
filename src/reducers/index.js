@@ -106,7 +106,7 @@ export default (state = getInitalState(), { type, payload }) => {
         restaurantCreated: true,
         restaurants: [payload.restaurant, ...state.restaurants]
       };
-    case actionTypes.UPDATE_RESTAURANT_START: 
+    case actionTypes.UPDATE_RESTAURANT_START:
       return {
         ...state,
         isLoading: true,
@@ -122,7 +122,19 @@ export default (state = getInitalState(), { type, payload }) => {
       return {
         ...state,
         restaurantCreated: false
-      }
+      };
+    case actionTypes.DELETE_RESTAURANT_START:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case actionTypes.DELETE_RESTAURANT_SUCCESS:
+      const list = state.restaurants.filter(res => res._id !== payload.restaurant._id);
+      return {
+        ...state,
+        isLoading: false,
+        restaurants: list
+      };
     default:
       return state;
   }
