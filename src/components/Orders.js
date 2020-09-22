@@ -28,7 +28,7 @@ const Orders = ({ orders, fetchOrders }) => {
       </header>
       <section className="middle-section">
         <h1 className="heading">Orders</h1>
-        {orders && !!orders.length &&
+        {orders && !!orders.length ?
           <>
             <p className="order-count">{orders.length} orders</p>
             <ul className="order-list">
@@ -43,6 +43,8 @@ const Orders = ({ orders, fetchOrders }) => {
               ))}
             </ul>
           </>
+          :
+          <p className="no-order-msg">You don't have any orders.</p>
         }
       </section>
     </StyledOrders>

@@ -52,4 +52,8 @@ export default styled.div`
   .order-list {
     margin-top: 4rem;
   }
+  .no-order-msg {
+    margin-top: 2rem;
+    font-weight: 500;
+  }
 `;
