@@ -25,8 +25,13 @@ export const login = (payload) => {
         dispatch(getActionObj(actionTypes.LOGIN_SUCCESS, { user }));
       }).catch(err => {
         console.log(err.message ? err.message : err);
+        dispatch(getActionObj(actionTypes.LOGIN_ERROR, { message: "Please check your username and password!" }));
       });
   };
+};
+
+export const setLoginError = () => {
+  return getActionObj(actionTypes.SET_LOGIN_ERROR);
 };
 
 export const signup = payload => {

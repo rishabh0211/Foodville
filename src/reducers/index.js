@@ -13,7 +13,8 @@ const getInitalState = () => ({
   restaurantUpdated: false,
   cartRestaurantId: '',
   showClearCartModal: false,
-  mealToAddAfterClearCart: null
+  mealToAddAfterClearCart: null,
+  loginError: ''
 });
 
 let selectedRestaurant, meals, cartRestaurantId;
@@ -32,6 +33,17 @@ export default (state = getInitalState(), { type, payload }) => {
         user: payload.user,
         isAuthorized: true
       };
+    case actionTypes.LOGIN_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        loginError: payload.message
+      };
+    case actionTypes.SET_LOGIN_ERROR:
+      return {
+        ...state,
+        loginError: ''
+      }
     case actionTypes.LOGOUT_START:
       return {
         ...state,

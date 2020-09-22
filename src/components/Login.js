@@ -2,16 +2,31 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import StyledLogin from "./styled/StyledLogin";
-import { login, signup } from "../actions";
+import { login, signup, setLoginError } from "../actions";
 import { userTypes } from "../constants";
 
-const Login = ({ login, isAuthorized, userCreated, signup }) => {
+const Login = ({ login, loginError, setLoginError, isAuthorized, userCreated, signup }) => {
   const history = useHistory();
+  
+  // stores which section to show
+  const [showLogin, setShowLogin] = useState(true);
+  // flag to show/hide user created message
+  const [showNotification, setShowNotification] = useState(false);
+  // stores the error to be displayed
+  const [error, setError] = useState('');
+  
   useEffect(() => {
     if (isAuthorized) {
       history.push('/restaurants');
     }
   }, [isAuthorized]);
+
+  useEffect(() => {
+    if (loginError) {
+      setError(loginError);
+      setLoginError();
+    }
+  }, [loginError]);
 
   const [inputState, setInputState] = useState({
     username: "",
@@ -20,12 +35,6 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
     confirmPassword: "",
     isRestaurant: ""
   });
-  // stores which section to show
-  const [showLogin, setShowLogin] = useState(true);
-  // flag to show/hide user created message
-  const [showNotification, setShowNotification] = useState(false);
-  // stores the error to be displayed
-  const [error, setError] = useState('');
 
   useEffect(() => {
     if (userCreated) {
@@ -46,7 +55,7 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
       confirmPassword: "",
       isRestaurant: ""
     });
-    setError("");    
+    setError("");
   };
 
   /**
@@ -251,14 +260,16 @@ const Login = ({ login, isAuthorized, userCreated, signup }) => {
 const mapStateToProps = state => {
   return {
     isAuthorized: state.isAuthorized,
-    userCreated: state.userCreated
+    userCreated: state.userCreated,
+    loginError: state.loginError
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     login: (credentails) => dispatch(login(credentails)),
-    signup: (credentails) => dispatch(signup(credentails))
+    signup: (credentails) => dispatch(signup(credentails)),
+    setLoginError: () => dispatch(setLoginError())
   }
 };
 
