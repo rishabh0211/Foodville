@@ -74,6 +74,10 @@ app.use("/api", routes);
 
 const staticPath = path.join(__dirname, 'build');
 app.use("/", express.static(staticPath));
+app.use("/restaurants", express.static(staticPath));
+app.use("/cart", express.static(staticPath));
+app.use("/restaurant/*", express.static(staticPath));
+app.use("/orders", express.static(staticPath));
 
 app.listen(port, () => {
   console.log(`server is up and running on port ${port}`);
