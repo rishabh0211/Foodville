@@ -14,6 +14,10 @@ const AddItemModal = ({ mealToEdit, handleSaveMenuItem, handleCancelItem }) => {
       setError("All the fields are mandatory");
       return;
     }
+    if (description.length > 150) {
+      etError("Meal description cannot be greater than 150 characters");
+      return;
+    }
     handleSaveMenuItem({ menuName, price, description });
   };
 
