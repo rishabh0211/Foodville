@@ -34,6 +34,9 @@ const AddRestaurant = ({ restaurant, isAdd, onCancelClick, onSubmitClick }) => {
     return true;
   };
 
+  /**
+   * Validates the restaurant description
+   */
   const checkDescriptionError = () => {
     if (!description) {
       setError("Restaurant description is mandatory");
@@ -61,11 +64,17 @@ const AddRestaurant = ({ restaurant, isAdd, onCancelClick, onSubmitClick }) => {
     }
   };
 
+  /**
+   * Handles the onchange event on name input
+   */
   const handleNameChange = e => {
     setError('');
     setRestaurantName(e.target.value);
   };
 
+  /**
+   * Handles the onchange event on description input
+   */
   const handleDescriptionChange = e => {
     setError('');
     setDescription(e.target.value);
