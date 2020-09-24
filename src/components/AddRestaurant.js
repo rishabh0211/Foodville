@@ -16,15 +16,29 @@ const AddRestaurant = ({ restaurant, isAdd, onCancelClick, onSubmitClick }) => {
   };
 
   /**
+   * Validates the name
+   */
+  const checkNameError = () => {
+    if (!restaurantName) {
+      setError("Restaurant Name is mandatory");
+      return false;
+    }
+    if (restaurantName.length < 2 || restaurantName.length > 40) {
+      setError("Restaurant Name should be between 2 and 40 characters");
+      return false;
+    }
+    return true;
+  };
+
+  /**
    * Handles the form submit action.
    */
   const handleSubmit = e => {
     e.preventDefault();
-    if (!restaurantName || !description) {
-      setError("All the fields are mandatory");
-      return;
+    const isValid = checkNameError();
+    if (isValid) {
+      onSubmitClick({ restaurantName, description });
     }
-    onSubmitClick({ restaurantName, description });
   };
 
   const handleNameChange = e => {
