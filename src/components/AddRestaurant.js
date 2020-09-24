@@ -23,8 +23,28 @@ const AddRestaurant = ({ restaurant, isAdd, onCancelClick, onSubmitClick }) => {
       setError("Restaurant Name is mandatory");
       return false;
     }
-    if (restaurantName.length < 2 || restaurantName.length > 40) {
-      setError("Restaurant Name should be between 2 and 40 characters");
+    if (restaurantName.length < 2) {
+      setError("Restaurant Name should be atleast 2 characters long");
+      return false;
+    }
+    if (restaurantName.length > 40) {
+      setError("Restaurant Name cannot be greater than 40 characters");
+      return false;
+    }
+    return true;
+  };
+
+  const checkDescriptionError = () => {
+    if (!description) {
+      setError("Restaurant description is mandatory");
+      return false;
+    }
+    if (description.length < 10) {
+      setError("Restaurant description should be atleast 10 characters long");
+      return false;
+    }
+    if (description.length > 200) {
+      setError("Restaurant description cannot be greater than 200 characters");
       return false;
     }
     return true;
@@ -35,7 +55,7 @@ const AddRestaurant = ({ restaurant, isAdd, onCancelClick, onSubmitClick }) => {
    */
   const handleSubmit = e => {
     e.preventDefault();
-    const isValid = checkNameError();
+    const isValid = checkNameError() && checkDescriptionError();
     if (isValid) {
       onSubmitClick({ restaurantName, description });
     }
