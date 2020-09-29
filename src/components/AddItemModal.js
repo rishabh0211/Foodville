@@ -15,7 +15,7 @@ const AddItemModal = ({ mealToEdit, handleSaveMenuItem, handleCancelItem }) => {
       return;
     }
     if (description.length > 150) {
-      etError("Meal description cannot be greater than 150 characters");
+      setError("Meal description cannot be greater than 150 characters");
       return;
     }
     handleSaveMenuItem({ menuName, price, description });
